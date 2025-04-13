@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>POS</title>
+    <title>Perjalanan Dinas</title>
     <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -48,37 +48,49 @@
                         <li class="nav-item">
                             <a class="nav-link text-white " aria-current="page" href="/">
                                 <span data-feather="home" class="align-text-bottom"></span>
-                                Dashboard
+                                Dashboard {{-- Semua User --}}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white " href="/Orders">
+                            <a class="nav-link text-white " href="/Admin">
                                 <span data-feather="file" class="align-text-bottom"></span>
-                                Pesanan
+                                Data Admin {{-- Admin --}}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white " href="/Products">
+                            <a class="nav-link text-white " href="/Pegawai">
                                 <span data-feather="shopping-cart" class="align-text-bottom"></span>
-                                Produk
+                                Data Pegawai {{-- Admin --}}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white " href="/Vendor">
+                            <a class="nav-link text-white " href="/Pimpinan">
                                 <span data-feather="users" class="align-text-bottom"></span>
-                                Vendor
+                                Data Pimpinan {{-- Admin --}}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white " href="/Reports">
+                            <a class="nav-link text-white " href="/SuratTugas">
                                 <span data-feather="bar-chart-2" class="align-text-bottom"></span>
-                                Laporan
+                                Surat Tugas {{-- Admin --}}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white " href="/Employees">
+                            <a class="nav-link text-white " href="/SuratPerjalananDinas">
                                 <span data-feather="layers" class="align-text-bottom"></span>
-                                Karyawan
+                                Surat Perjalanan Dinas {{-- Pegawai, Pimpinan --}}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white " href="/NotaDinas">
+                                <span data-feather="layers" class="align-text-bottom"></span>
+                                Nota Dinas {{-- Pimpinan --}}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white " href="/LaporanPerjalananDinas">
+                                <span data-feather="layers" class="align-text-bottom"></span>
+                                Laporan Perjalanan Dinas {{-- Pegawai, Pimpinan --}}
                             </a>
                         </li>
                     </ul>

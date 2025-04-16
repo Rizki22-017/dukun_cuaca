@@ -8,49 +8,9 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('pegawai', function (Blueprint $table) {
-            $table->id('id_pegawai');
-            $table->string('nama_pegawai', 100);
-            $table->string('nip', 50)->unique();
-            $table->string('pangkat_golongan', 50)->nullable();
-            $table->string('jabatan', 100)->nullable();
-            $table->string('bagian_kerja', 100)->nullable();
-            $table->date('tanggal_lahir')->nullable();
-        });
-
-        Schema::create('pimpinan_st', function (Blueprint $table) {
-            $table->id('id_pimpinan_st');
-            $table->foreignId('id_pegawai')->constrained('pegawai');
-        });
-
-        Schema::create('pimpinan_spd', function (Blueprint $table) {
-            $table->id('id_pimpinan_spd');
-            $table->foreignId('id_pegawai')->constrained('pegawai');
-        });
-
-        Schema::create('surat_tugas', function (Blueprint $table) {
-            $table->id('nomor_st');
-            $table->foreignId('id_pimpinan_st')->constrained('pimpinan_st');
-            $table->foreignId('id_pegawai')->constrained('pegawai');
-            $table->text('tugas');
-            $table->integer('selama');
-            $table->string('lokasi', 255);
-            $table->date('tgl_mulai');
-            $table->date('tgl_selesai');
-            $table->string('sumber_dana', 100)->nullable();
-            $table->date('tgl_pembuatan_st');
-        });
-
-        Schema::create('surat_perjalanan_dinas', function (Blueprint $table) {
-            $table->id('nomor_spd');
-            $table->foreignId('nomor_st')->constrained('surat_tugas')->onDelete('cascade');
-            $table->foreignId('id_pimpinan_spd')->nullable()->constrained('pimpinan_spd')->onDelete('set null');
-            $table->date('tgl_spd');
-        });
-
         Schema::create('users', function (Blueprint $table) {
             $table->id('id_user');
-            $table->string('nama_lengkap', 100);
+            $table->string('nama_lengkap', 50);
             $table->string('username', 50)->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -81,10 +41,5 @@ return new class extends Migration
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('users');
-        Schema::dropIfExists('surat_perjalanan_dinas');
-        Schema::dropIfExists('surat_tugas');
-        Schema::dropIfExists('pimpinan_spd');
-        Schema::dropIfExists('pimpinan_st');
-        Schema::dropIfExists('pegawai');
     }
 };

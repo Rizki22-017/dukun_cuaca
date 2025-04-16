@@ -11,7 +11,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('layout', ["title" => "Dashboard", "subtitle" => "Dashboard"]);
+        return view('dashboard.index', ["title" => "Dashboard", "subtitle" => "Dashboard"]);
     }
 
     /**

@@ -12,8 +12,8 @@ class SuratTugasController extends Controller
      */
     public function index()
     {
-        $surat = SuratTugas::all();
-        return view('surat.index', compact(['surat']), ["title" => "Surat", "subtitle" => "Surat"]);
+        // $surat = SuratTugas::all();
+        return view('surat.index', ["title" => "Surat", "subtitle" => "Daftar SPD"]);
     }
 
     /**
@@ -21,7 +21,7 @@ class SuratTugasController extends Controller
      */
     public function create()
     {
-        //
+        return view('surat.create', ["title" => "Surat", "subtitle" => "Data Surat"]);
     }
 
     /**

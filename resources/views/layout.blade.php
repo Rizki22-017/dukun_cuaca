@@ -11,6 +11,24 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
 
+    <style>
+        .date-label {
+            font-size: 0.9rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        .date-info {
+            background-color: red;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 5px;
+            float: right;
+        }
+    </style>
+
     <!-- Custom styles for this template -->
     <link href="/css/dashboard.css" rel="stylesheet">
 
@@ -75,13 +93,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white {{ $title === 'Surat Perjalanan Dinas' ? 'active' : '' }}"
-                            href="/SuratPerjalananDinas">
-                            <span data-feather="layers" class="align-text-bottom"></span>
-                            Surat Perjalanan Dinas {{-- Pegawai, Pimpinan --}}
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link text-white {{ $title === 'Nota Dinas' ? 'active' : '' }}" href="/NotaDinas">
                             <span data-feather="layers" class="align-text-bottom"></span>
                             Nota Dinas {{-- Pimpinan --}}
@@ -103,6 +114,7 @@
             <div
                 class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 class="h2">{{ $subtitle }}</h1>
+                <div class="date-info d-flex justify-content-between align-items-center mb-3" id="currentDate"></div>
             </div>
             @yield('container')
         </main>
@@ -118,6 +130,23 @@
         integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous">
     </script>
     <script src="/js/dashboard.js"></script>
+    <script>
+        // Format tanggal hari ini ke format lokal Indonesia
+        const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+        const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober',
+            'November', 'Desember'
+        ];
+
+        const today = new Date();
+        const formattedDate =
+            `${hari[today.getDay()]}, ${today.getDate().toString().padStart(2, '0')} ${bulan[today.getMonth()]} ${today.getFullYear()}`;
+
+        document.getElementById('currentDate').textContent = formattedDate;
+
+        const dateValue = today.toISOString().split('T')[0];
+        document.getElementById('startDate').value = dateValue;
+        document.getElementById('endDate').value = dateValue;
+    </script>
 
 </body>
 

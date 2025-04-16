@@ -47,8 +47,9 @@
                         {{-- <td>{{ $val -> namatabel }}</td> --}}
                         {{-- <td>{{ $val -> namatabel }}</td> --}}
                         {{-- <td>{{ $val -> namatabel }}</td> --}}
-                        {{-- <td><button class="btn btn-outline-primary btn-sm">Unduh Surat Tugas</button></td> --}}
-                        {{-- <td><button class="btn btn-outline-primary btn-sm">Unduh SPD</button></td> --}}
+                        {{-- <td><button class="btn btn-outline-primary btn-sm">Unduh Surat Tugas</button>
+                            <button class="btn btn-outline-primary btn-sm">Unduh SPD</button>
+                        </td> --}}
                     </tr>
                     {{-- @endforeach --}}
                 </tbody>

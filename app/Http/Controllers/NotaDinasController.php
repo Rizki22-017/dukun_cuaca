@@ -12,8 +12,9 @@ class NotaDinasController extends Controller
      */
     public function index()
     {
-        $notadinas = NotaDinas::all();
-        return view('notadinas.index', compact(['notadinas']), ["title" => "Nota Dinas", "subtitle" => "Nota Dinas"]);
+        // $notadinas = NotaDinas::all();
+        return view('notadinas.index', ["title" => "Nota Dinas", "subtitle" => "Nota Dinas"]);
+        // compact(['notadinas']),
     }
 
     /**

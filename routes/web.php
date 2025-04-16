@@ -18,6 +18,6 @@ Route::get('/Pimpinan', [PimpinanSpdController::class, 'index']);
 
 Route::resource('Surat', SuratTugasController::class);
 
-Route::get('/NotaDinas', [NotaDinasController::class, 'index']);
+Route::resource('NotaDinas', NotaDinasController::class);
 
 Route::get('/LaporanPerjalananDinas', [LaporanPerjalananDinasController::class, 'index']);

@@ -4,6 +4,12 @@
     <div class="container mt-4">
         <form>
             <div class="form-section">
+
+                <div class="mb-3">
+                    <label class="form-label">Nomor Surat</label>
+                    <input type="text" class="form-control" placeholder="Nomor Surat">
+                </div>
+
                 <div class="mb-3">
                     <label class="form-label">Pejabat yang memberi perintah</label>
                     <select class="form-select">
@@ -19,11 +25,27 @@
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label class="form-label">Kendaraan yang digunakan</label>
-                        <select class="form-select">
-                            <option selected disabled>Kendaraan yang digunakan</option>
-                        </select>
+                        <label class="form-label d-block">Kendaraan yang digunakan</label>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="kendaraan[]" value="Darat"
+                                id="kendaraanDarat">
+                            <label class="form-check-label" for="kendaraanDarat">Darat</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="kendaraan[]" value="Laut"
+                                id="kendaraanLaut">
+                            <label class="form-check-label" for="kendaraanLaut">Laut</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="kendaraan[]" value="Udara"
+                                id="kendaraanUdara">
+                            <label class="form-check-label" for="kendaraanUdara">Udara</label>
+                        </div>
                     </div>
+
                     <div class="col-md-4">
                         <label class="form-label">Tempat Berangkat</label>
                         <input type="text" class="form-control" placeholder="Tempat Berangkat">
@@ -36,10 +58,6 @@
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label class="form-label">Durasi Perjalanan (hari)</label>
-                        <input type="number" class="form-control" placeholder="Durasi Perjalanan (hari)">
-                    </div>
-                    <div class="col-md-4">
                         <label class="form-label">Tanggal Berangkat</label>
                         <input type="date" class="form-control">
                     </div>
@@ -51,18 +69,28 @@
 
                 <div class="mb-3">
                     <label class="form-label">Pegawai yang ditugaskan</label>
-                    {{-- nama pegawai yang bawahan dari pimpinan yang dipilih --}}
-                    <select class="form-select">
-                        <option selected disabled>Pegawai yang ditugaskan</option>
+                    <select name="pegawai_ditugaskan" class="form-select" required>
+                        <option selected disabled>Pilih pegawai</option>
+                        {{-- @foreach ($pegawaiList as $pegawai)
+                            <option value="{{ $pegawai->id }}">{{ $pegawai->nama }}</option>
+                        @endforeach --}}
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Pengikut <span class="text-muted">(optional)</span></label>
-                    {{-- daftar pegawai lainnya --}}
-                    <select class="form-select">
-                        <option selected disabled>Pengikut</option>
-                    </select>
+                    <div id="pengikut-container">
+                        <div class="input-group mb-2">
+                            <select name="pengikut[]" class="form-select" onchange="tambahDropdownPengikut(this)">
+                                <option selected disabled>Pilih pengikut</option>
+                                {{-- @foreach ($pegawaiList as $pegawai)
+                                    <option value="{{ $pegawai->id }}">{{ $pegawai->nama }}</option>
+                                @endforeach --}}
+                            </select>
+                            <button class="btn btn-outline-danger" type="button" onclick="hapusDropdownPengikut(this)"
+                                disabled>&times;</button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row mb-3">
@@ -85,4 +113,39 @@
             </div>
         </form>
     </div>
+@endsection
+
+@section('script')
+    <script>
+        function tambahDropdownPengikut(selectElement) {
+            const container = document.getElementById('pengikut-container');
+            const lastInputGroup = container.lastElementChild;
+
+            if (selectElement.parentElement === lastInputGroup && selectElement.value) {
+                const newGroup = lastInputGroup.cloneNode(true);
+
+                // Reset nilai dan enable tombol hapus
+                const select = newGroup.querySelector('select');
+                select.value = '';
+                select.addEventListener('change', function() {
+                    tambahDropdownPengikut(this);
+                });
+
+                const deleteButton = newGroup.querySelector('button');
+                deleteButton.disabled = false;
+
+                container.appendChild(newGroup);
+            }
+        }
+
+        function hapusDropdownPengikut(button) {
+            const container = document.getElementById('pengikut-container');
+            const groups = container.querySelectorAll('.input-group');
+
+            // Jangan hapus kalau hanya satu dropdown tersisa
+            if (groups.length > 1) {
+                button.parentElement.remove();
+            }
+        }
+    </script>
 @endsection

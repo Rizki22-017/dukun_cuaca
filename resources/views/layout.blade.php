@@ -52,13 +52,6 @@
         <div class="row">
             <nav id="sidebarMenu"
                 class="d-flex flex-column flex-shrink-0 col-md-3 col-lg-2 d-md-block text-white bg-dark sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <a href="/"
-                        class="d-flex align-items-center justify-content-start ps-3 text-white text-decoration-none"
-                        id="dropdownUser1">
-                        <strong>Dashboard</strong>
-                    </a>
-                </div>
                 <hr>
                 <ul class="nav nav-pills flex-column nav-pills">
                     <li class="nav-item">
@@ -130,6 +123,7 @@
         integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous">
     </script>
     <script src="/js/dashboard.js"></script>
+
     <script>
         // Format tanggal hari ini ke format lokal Indonesia
         const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
@@ -147,6 +141,8 @@
         document.getElementById('startDate').value = dateValue;
         document.getElementById('endDate').value = dateValue;
     </script>
+
+    @yield('script')
 
 </body>
 

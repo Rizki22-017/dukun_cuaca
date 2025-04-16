@@ -13,8 +13,9 @@ class LaporanPerjalananDinasController extends Controller
      */
     public function index()
     {
-        $laporanperjalanandinas = SuratTugas::all();
-        return view('lpd.index', compact(['laporan']), ["title" => "Laporan Perjalanan Dinas", "subtitle" => "Laporan Perjalanan Dinas"]);
+        // $laporanperjalanandinas = SuratTugas::all();
+        return view('lpd.index', ["title" => "Laporan Perjalanan Dinas", "subtitle" => "Laporan Perjalanan Dinas"]);
+        // compact(['laporan']),
     }
 
     /**

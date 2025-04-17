@@ -12,8 +12,8 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        $pegawai = pegawai::all();
-        return view('pegawai.index', compact(['pegawai']), ["title" => "Pegawai", "subtitle" => "Data Pegawai"]);
+        $pegawais = pegawai::all();
+        return view('pegawai.index', compact(['pegawais']), ["title" => "Pegawai", "subtitle" => "Data Pegawai"]);
     }
 
     /**

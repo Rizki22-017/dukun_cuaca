@@ -12,9 +12,8 @@ class PimpinanSpdController extends Controller
      */
     public function index()
     {
-        // $pimpinanspd = PimpinanSpd::all();
-        return view('pimpinan.index', ["title" => "Pimpinan", "subtitle" => "Pimpinan"]);
-        // compact(['pimpinan']),
+        $pimpinanspd = PimpinanSpd::all();
+        return view('pimpinan.spdindex', compact(['pimpinanspd']), ["title" => "Pimpinan", "subtitle" => "Pimpinan"]);
     }
 
     /**

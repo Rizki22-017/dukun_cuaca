@@ -10,8 +10,12 @@ return new class extends Migration {
         Schema::create('spds', function (Blueprint $table) {
             $table->id('nomor_spd');
             $table->string('nomor_st', 25);
-            $table->foreign('nomor_st')->references('nomor_st')->on('surat_tugas')->onDelete('cascade');
-            $table->foreignId('id_pimpinan_spd')->constrained('pimpinan_spd')->onDelete('cascade');
+            $table->foreign('nomor_st')->references('nomor_st')->on('surat_tugases')->onDelete('cascade');
+            // $table->foreignId('id_pimpinan_spd')->constrained('pimpinan_spd')->onDelete('cascade');
+            $table->foreignId('id_pimpinan_spd')
+                ->constrained('pimpinan_spds', 'id_pimpinan_spd')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->date('tgl_spd');
             $table->timestamps();
         });

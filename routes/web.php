@@ -11,7 +11,7 @@ use App\Http\Controllers\LaporanPerjalananDinasController;
 
 Route::resource('/', HomeController::class);
 
-Route::get('/Admin', [PegawaiController::class, 'index']);
+Route::get('/Admin', [AdminController::class, 'index']);
 
 Route::resource('Pegawai', PegawaiController::class);
 

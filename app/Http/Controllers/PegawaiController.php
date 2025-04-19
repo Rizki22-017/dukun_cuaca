@@ -54,18 +54,38 @@ class PegawaiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pegawai $pegawai)
+    public function edit($id)
     {
-        //
+        $pegawai = Pegawai::where('id_pegawai', $id)->firstOrFail();
+
+        return view('pegawai.edit', compact('pegawai'), [
+            "title" => "Pegawai",
+            "subtitle" => "Edit Data Pegawai"
+        ]);
     }
+
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Pegawai $pegawai)
+    public function update(Request $request, $id)
     {
-        //
+        $pegawai = Pegawai::where('id_pegawai', $id)->firstOrFail();
+
+        $validateData = $request->validate([
+            'nama_pegawai' => 'required|string|max:50',
+            'nip' => 'required|string|max:15|unique:pegawais,nip,' . $pegawai->id_pegawai . ',id_pegawai',
+            'pangkat_golongan' => 'required|string|max:50',
+            'jabatan' => 'required|string|max:15',
+            'bagian_kerja' => 'required|string|max:50',
+            'tanggal_lahir' => 'required|date',
+        ]);
+
+        $pegawai->update($validateData);
+
+        return redirect()->route('Pegawai.index')->with('success', 'Data Pegawai Berhasil Diperbarui');
     }
+
 
     /**
      * Remove the specified resource from storage.

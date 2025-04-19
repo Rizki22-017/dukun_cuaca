@@ -60,15 +60,17 @@
                         <td>{{ $pegawai->jabatan }}</td>
                         <td>{{ $pegawai->bagian_kerja }}</td>
                         <td>{{ $pegawai->tanggal_lahir }}</td>
-                        <td><button class="btn btn-outline-primary btn-sm">Edit</button>
+                        <td>
+                            <a href="{{ route('Pegawai.edit', $pegawai->id_pegawai) }}" class="btn btn-outline-primary btn-sm">Edit</a>
 
                             <button class="btn btn-outline-danger btn-sm"
                             onclick="confirmDelete({{ $pegawai->id_pegawai }})">Delete</button>
 
                             <form id="delete-form-{{ $pegawai->id_pegawai }}"
-                                action=" {{ route('Pegawai.destroy', $pegawai->id_pegawai) }}" method="POST"
+                                action="{{ route('Pegawai.destroy', $pegawai->id_pegawai) }}" method="POST"
                                 style="display: none;">
-                                @csrf @method('DELETE')
+                                @csrf
+                                @method('DELETE')
                             </form>
                         </td>
                     </tr>

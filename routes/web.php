@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PegawaiController;
@@ -10,9 +11,9 @@ use App\Http\Controllers\LaporanPerjalananDinasController;
 
 Route::get('/', [HomeController::class, 'index']);
 
-Route::get('/Admin', [PegawaiController::class, 'index']);
+Route::get('/Admin', [AdminController::class, 'index']);
 
-Route::get('/Pegawai', [PegawaiController::class, 'index']);
+Route::resource('Pegawai', PegawaiController::class);
 
 Route::get('/Pimpinan', [PimpinanSpdController::class, 'index']);
 

@@ -21,7 +21,7 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        //
+        return view('pegawai.create', ["title" => "Pegawai", "subtitle" => "Data Pegawai"]);
     }
 
     /**
@@ -29,7 +29,18 @@ class PegawaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'nama_pegawai' => 'required|string|max:50',
+            'nip' => 'required|string|max:15|unique:pegawais,nip',
+            'pangkat_golongan' => 'required|string|max:50',
+            'jabatan' => 'required|string|max:15',
+            'bagian_kerja' => 'required|string|max:50',
+            'tanggal_lahir' => 'required|date',
+        ]);
+
+        Pegawai::create($validateData);
+
+        return redirect()->route('Pegawai.index')->with('success', 'Data Pegawai Berhasil Ditambahkan');
     }
 
     /**
@@ -59,8 +70,15 @@ class PegawaiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pegawai $pegawai)
+    public function destroy($id)
     {
-        //
+        $pegawai = Pegawai::where('id_pegawai', $id)->first();
+
+        if ($pegawai) {
+            $pegawai->delete();
+            return redirect()->route('Pegawai.index')->with('success', 'Data Pegawai Berhasil Dihapus');
+        } else {
+            return redirect()->route('Pegawai.index')->with('error', 'Data Pegawai tidak ditemukan!');
+        }
     }
 }

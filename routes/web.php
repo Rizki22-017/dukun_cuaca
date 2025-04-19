@@ -9,16 +9,16 @@ use App\Http\Controllers\SuratTugasController;
 use App\Http\Controllers\PimpinanSpdController;
 use App\Http\Controllers\LaporanPerjalananDinasController;
 
-Route::get('/', [HomeController::class, 'index']);
+Route::resource('/', HomeController::class);
 
-Route::get('/Admin', [AdminController::class, 'index']);
+Route::get('/Admin', [PegawaiController::class, 'index']);
 
 Route::resource('Pegawai', PegawaiController::class);
 
-Route::get('/Pimpinan', [PimpinanSpdController::class, 'index']);
+Route::resource('Pimpinan', PimpinanSpdController::class);
 
 Route::resource('Surat', SuratTugasController::class);
 
 Route::resource('NotaDinas', NotaDinasController::class);
 
-Route::get('/LaporanPerjalananDinas', [LaporanPerjalananDinasController::class, 'index']);
+Route::resource('LaporanPerjalananDinas', LaporanPerjalananDinasController::class);

@@ -1,31 +1,31 @@
 @extends('layout')
 
 @section('container')
-@if (session('success'))
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: 'success',
-        text: '{{ session('success') }}',
-        showConfirmButton: false,
-        timer: 1500
-    })
-</script>
-@endif
-@if ($errors->any())
-<script>
-    Swal.fire({
-        icon: 'error',
-        title: 'Error',
-        html: `
-                @foreach ($errors->all() as $error)
-                    {{ $error }}
-                @endforeach
-        `,
-        showConfirmButton: true
-    });
-</script>
-@endif
+    @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'success',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+    @endif
+    @if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            html: `
+                    @foreach ($errors->all() as $error)
+                        {{ $error }}
+                    @endforeach
+            `,
+            showConfirmButton: true
+        });
+    </script>
+    @endif
 
 
     <div class="container mt-4">

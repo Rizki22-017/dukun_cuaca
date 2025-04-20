@@ -1,0 +1,22 @@
+@extends('layout')
+
+@section('container')
+    <div class="container mt-4">
+        <form action="{{ route('Pimpinan.storeSpd') }}" method="POST">
+            @csrf
+            <div class="form-section">
+
+                <div class="mb-3">
+                    <label class="form-label">Nama Pimpinan</label>
+                    <select class="form-select" name="id_pegawai">
+                        <option selected disabled>Pilih pimpinan untuk memberikan surat perjalanan dinas</option>
+                        @foreach ($pegawais as $pegawai)
+                            <option value="{{ $pegawai->id_pegawai }}">{{ $pegawai->nama_pegawai }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+    </div>
+@endsection

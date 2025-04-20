@@ -1,38 +1,129 @@
 @extends('layout')
 
 @section('container')
-    <a href={{ route('Pimpinan.create') }}><button type="button" class="btn btn-success">Tambah Data</button></a>
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">No</th>
-                <th scope="col">Nama </th>
-                <th scope="col">NIP</th>
-                <th scope="col">Pangkat/Golongan</th>
-                <th scope="col">Jabatan</th>
-                <th scope="col">Unit Organisasi</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{-- @foreach ($pimpinan as $val) --}}
-            <tr>
-                {{-- <td>{{ $loop->iteration }}</td> --}}
-                {{-- <td>{{ $val->nama }}</td> --}}
-                {{-- <td>{{ $val->nip }}</td> --}}
-                {{-- <td>{{ $val->pangkatg }}</td> --}}
-                {{-- <td>{{ $val->jabatan }}</td> --}}
-                {{-- <td>{{ $val->unit }}</td> --}}
-                <td><a href={{ 'Pimpinan.update' }}><button type="button" class="btn btn-primary">Edit</button></a></td>
-                <td>
-                    {{-- <form action="{{ route('Pimpinan.destroy', $val->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger"
-                            onclick="return confirm('Yakin ingin menghapus data ini?')">Hapus</button>
-                    </form> --}}
-                </td>
-            </tr>
-            {{-- @endforeach --}}
-        </tbody>
-    </table>
+
+    @if (session('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'success',
+            text: '{{ session('success') }}',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    </script>
+    @endif
+    @if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            html: `
+                    @foreach ($errors->all() as $error)
+                        {{ $error }}
+                    @endforeach
+            `,
+            showConfirmButton: true
+        });
+    </script>
+    @endif
+
+    <div class="container mt-4">
+
+        <ul class="nav nav-tabs mb-3" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pst-tab" data-bs-toggle="tab" data-bs-target="#pst" type="button" role="tab" aria-controls="pst" aria-selected="true"><b>Pimpinan Surat Tugas</b></button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pspd-tab" data-bs-toggle="tab" data-bs-target="#pspd" type="button" role="tab" aria-controls="pspd" aria-selected="false"><b>Pimpinan Surat Perjalanan Dinas</b></button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="pst" role="tabpanel" aria-labelledby="pst-tab">
+
+                <div class="mb-4 mt-4">
+                    <a href={{ route('Pimpinan.create') }}><button type="button" class="btn btn-success">Tambah Data</button></a>
+                </div>
+
+                <div class="mb-2">
+                    <input type="text" class="form-control" placeholder="🔍 All fields">
+                </div>
+                <div class="table-wrapper">
+                    <table class="table table-bordered text-center align-middle">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th scope="col">NIP</th>
+                                <th scope="col">Nama Pimpinan ST</th>
+                                <th scope="col">Pangkat Golongan</th>
+                                <th scope="col">Jabatan</th>
+                                <th scope="col">Bagian Kerja</th>
+                                <th scope="col">Tanggal Lahir</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pimpinansts as $pst)
+                            <tr>
+                                <td>{{ $pst->pegawai->nip }}</td>
+                                <td>{{ $pst->pegawai->nama_pegawai }}</td>
+                                <td>{{ $pst->pegawai->pangkat_golongan }}</td>
+                                <td>{{ $pst->pegawai->jabatan }}</td>
+                                <td>{{ $pst->pegawai->bagian_kerja }}</td>
+                                <td>{{ $pst->pegawai->tanggal_lahir }}</td>
+                                <td>
+                                    <button class="btn btn-outline-primary btn-sm">Unduh Surat Tugas</button>
+                                    <button class="btn btn-outline-primary btn-sm">Unduh SPD</button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pspd" role="tabpanel" aria-labelledby="pspd-tab">
+
+                <div class="mb-4 mt-4">
+                    <a href={{ route('Pimpinan.createSpd') }}><button type="button" class="btn btn-success">Tambah Data</button></a>
+                </div>
+
+                <div class="mb-2">
+                    <input type="text" class="form-control" placeholder="🔍 All fields">
+                </div>
+                <div class="table-wrapper">
+                    <table class="table table-bordered text-center align-middle">
+                        <thead class="table-secondary">
+                            <tr>
+                                <th scope="col">NIP</th>
+                                <th scope="col">Nama Pimpinan SPD</th>
+                                <th scope="col">Pangkat Golongan</th>
+                                <th scope="col">Jabatan</th>
+                                <th scope="col">Bagian Kerja</th>
+                                <th scope="col">Tanggal Lahir</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pimpinanspds as $pspd)
+                            <tr>
+                                <td>{{ $pspd->pegawai->nip }}</td>
+                                <td>{{ $pspd->pegawai->nama_pegawai }}</td>
+                                <td>{{ $pspd->pegawai->pangkat_golongan }}</td>
+                                <td>{{ $pspd->pegawai->jabatan }}</td>
+                                <td>{{ $pspd->pegawai->bagian_kerja }}</td>
+                                <td>{{ $pspd->pegawai->bagian_kerja }}</td>
+                                <td>
+                                    <button class="btn btn-outline-primary btn-sm">Unduh Surat Tugas</button>
+                                    <button class="btn btn-outline-primary btn-sm">Unduh SPD</button>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
 @endsection

@@ -36,20 +36,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($namadatabase as $val) --}}
+                            @foreach ($pimpinansts as $pst)
                             <tr>
-                                {{-- <td>{{ $val->nip }}</td> --}}
-                                {{-- <td>{{ $val->nama }}</td> --}}
-                                {{-- <td>{{ $val->pangkat }}</td> --}}
-                                {{-- <td>{{ $val->jabatan }}</td> --}}
-                                {{-- <td>{{ $val->bagian }}</td> --}}
-                                {{-- <td>{{ $val->tgl_lahir }}</td> --}}
-                                {{-- <td>
+                                <td>{{ $pst->pegawai->nip }}</td>
+                                <td>{{ $pst->pegawai->nama_pegawai }}</td>
+                                <td>{{ $pst->pegawai->pangkat_golongan }}</td>
+                                <td>{{ $pst->pegawai->jabatan }}</td>
+                                <td>{{ $pst->pegawai->bagian_kerja }}</td>
+                                <td>{{ $pst->pegawai->tanggal_lahir }}</td>
+                                <td>
                                     <button class="btn btn-outline-primary btn-sm">Unduh Surat Tugas</button>
                                     <button class="btn btn-outline-primary btn-sm">Unduh SPD</button>
-                                </td> --}}
+                                </td>
                             </tr>
-                            {{-- @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -78,20 +78,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($namadatabase as $val) --}}
+                            @foreach ($pimpinanspds as $pspd)
                             <tr>
-                                {{-- <td>{{ $val->nip }}</td> --}}
-                                {{-- <td>{{ $val->nama }}</td> --}}
-                                {{-- <td>{{ $val->pangkat }}</td> --}}
-                                {{-- <td>{{ $val->jabatan }}</td> --}}
-                                {{-- <td>{{ $val->bagian }}</td> --}}
-                                {{-- <td>{{ $val->tgl_lahir }}</td> --}}
-                                {{-- <td>
+                                <td>{{ $pspd->pegawai->nip }}</td>
+                                <td>{{ $pspd->pegawai->nama_pegawai }}</td>
+                                <td>{{ $pspd->pegawai->pangkat_golongan }}</td>
+                                <td>{{ $pspd->pegawai->jabatan }}</td>
+                                <td>{{ $pspd->pegawai->bagian_kerja }}</td>
+                                <td>{{ $pspd->pegawai->bagian_kerja }}</td>
+                                <td>
                                     <button class="btn btn-outline-primary btn-sm">Unduh Surat Tugas</button>
                                     <button class="btn btn-outline-primary btn-sm">Unduh SPD</button>
-                                </td> --}}
+                                </td>
                             </tr>
-                            {{-- @endforeach --}}
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

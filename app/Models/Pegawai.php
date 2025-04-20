@@ -21,4 +21,12 @@ class Pegawai extends Model
         'bagian_kerja',
         'tanggal_lahir',
     ];
+
+    public function pimpinanst(){
+        return $this->hasMany(PimpinanSt::class);
+    }
+
+    public function pimpinanspd(){
+        return $this->hasMany(PimpinanSpd::class);
+    }
 }

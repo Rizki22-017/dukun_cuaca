@@ -6,8 +6,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\NotaDinasController;
 use App\Http\Controllers\SuratTugasController;
-use App\Http\Controllers\PimpinanSpdController;
 use App\Http\Controllers\LaporanPerjalananDinasController;
+use App\Http\Controllers\PimpinanController;
 
 Route::resource('/', HomeController::class);
 
@@ -15,7 +15,7 @@ Route::get('/Admin', [AdminController::class, 'index']);
 
 Route::resource('Pegawai', PegawaiController::class);
 
-Route::resource('Pimpinan', PimpinanSpdController::class);
+Route::resource('Pimpinan', PimpinanController::class);
 
 Route::resource('Surat', SuratTugasController::class);
 

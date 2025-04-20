@@ -72,8 +72,17 @@
                                 <td>{{ $pst->pegawai->bagian_kerja }}</td>
                                 <td>{{ $pst->pegawai->tanggal_lahir }}</td>
                                 <td>
-                                    <button class="btn btn-outline-primary btn-sm">Unduh Surat Tugas</button>
-                                    <button class="btn btn-outline-primary btn-sm">Unduh SPD</button>
+                                    <a href="{{ route('Pimpinan.edit', $pst->id_pimpinan_st) }}" class="btn btn-outline-primary btn-sm">Edit</a>
+
+                                    <button class="btn btn-outline-danger btn-sm"
+                                    onclick="confirmDelete({{ $pst->id_pimpinan_st }})">Delete</button>
+
+                                    <form id="delete-form-{{ $pst->id_pimpinan_st }}"
+                                        action="{{ route('Pimpinan.destroy', $pst->id_pimpinan_st) }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -112,10 +121,19 @@
                                 <td>{{ $pspd->pegawai->pangkat_golongan }}</td>
                                 <td>{{ $pspd->pegawai->jabatan }}</td>
                                 <td>{{ $pspd->pegawai->bagian_kerja }}</td>
-                                <td>{{ $pspd->pegawai->bagian_kerja }}</td>
+                                <td>{{ $pspd->pegawai->tanggal_lahir }}</td>
                                 <td>
-                                    <button class="btn btn-outline-primary btn-sm">Unduh Surat Tugas</button>
-                                    <button class="btn btn-outline-primary btn-sm">Unduh SPD</button>
+                                    <a href="{{ route('Pimpinan.editSpd', $pspd->id_pimpinan_spd) }}" class="btn btn-outline-primary btn-sm">Edit</a>
+
+                                    <button class="btn btn-outline-danger btn-sm"
+                                    onclick="confirmDelete({{ $pspd->id_pimpinan_spd }})">Delete</button>
+
+                                    <form id="delete-form-{{ $pspd->id_pimpinan_spd }}"
+                                        action="{{ route('Pimpinan.destroySpd', $pspd->id_pimpinan_spd) }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
@@ -124,6 +142,24 @@
                 </div>
             </div>
         </div>
-
     </div>
+
+    <script>
+        function confirmDelete(pimpinanId) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Data yang dihapus tidak dapat dikembalikan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log(`Submitting delete form for pimpinan ID: ${pimpinanId}`);
+                    document.getElementById(`delete-form-${pimpinanId}`).submit();
+                }
+            });
+        }
+    </script>
 @endsection

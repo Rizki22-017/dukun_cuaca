@@ -53,7 +53,7 @@ class PimpinanController extends Controller
             'id_pegawai' => $request->id_pegawai,
         ]);
 
-        return redirect()->route('Pimpinan.index')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('Pimpinan.index')->with('success', 'Data berhasil ditambahkan')->with('activeTab', 'pst-tab');
     }
 
     public function createSpd()
@@ -83,7 +83,7 @@ class PimpinanController extends Controller
             'id_pegawai' => $request->id_pegawai,
         ]);
 
-        return redirect()->route('Pimpinan.index')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('Pimpinan.index')->with('success', 'Data berhasil ditambahkan')->with('activeTab', 'pspd-tab');
     }
 
     /**
@@ -127,7 +127,7 @@ class PimpinanController extends Controller
             'id_pegawai' => $request->id_pegawai,
         ]);
 
-        return redirect()->route('Pimpinan.index')->with('success', 'Data Pimpinan ST berhasil diperbarui');
+        return redirect()->route('Pimpinan.index')->with('success', 'Data Pimpinan ST berhasil diperbarui')->with('activeTab', 'pst-tab');
     }
 
     public function editSpd($id)
@@ -162,7 +162,7 @@ class PimpinanController extends Controller
             'id_pegawai' => $request->id_pegawai,
         ]);
 
-        return redirect()->route('Pimpinan.index')->with('success', 'Data Pimpinan SPD berhasil diperbarui');
+        return redirect()->route('Pimpinan.index')->with('success', 'Data Pimpinan SPD berhasil diperbarui')->with('activeTab', 'pspd-tab');
     }
 
     /**
@@ -173,7 +173,7 @@ class PimpinanController extends Controller
         $pimpinan = PimpinanSt::findOrFail($id);
         $pimpinan->delete();
 
-        return redirect()->route('Pimpinan.index')->with('success', 'Pimpinan ST berhasil dihapus');
+        return redirect()->route('Pimpinan.index')->with('success', 'Pimpinan ST berhasil dihapus')->with('activeTab', 'pst-tab');
     }
 
     public function destroySpd($id)
@@ -181,6 +181,6 @@ class PimpinanController extends Controller
         $pimpinan = PimpinanSpd::findOrFail($id);
         $pimpinan->delete();
 
-        return redirect()->route('Pimpinan.index')->with('success', 'Pimpinan SPD berhasil dihapus');
+        return redirect()->route('Pimpinan.index')->with('success', 'Pimpinan SPD berhasil dihapus')->with('activeTab', 'pspd-tab');
     }
 }

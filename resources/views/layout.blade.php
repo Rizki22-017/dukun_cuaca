@@ -81,9 +81,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white {{ $title === 'Surat' ? 'active' : '' }}" href="/Surat">
+                        <a class="nav-link text-white {{ $title === 'St' ? 'active' : '' }}" href="/St">
                             <span data-feather="bar-chart-2" class="align-text-bottom"></span>
-                            Surat {{-- Admin --}}
+                            Surat Tugas{{-- Admin --}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white {{ $title === 'Spd' ? 'active' : '' }}" href="/Spd">
+                            <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+                            Surat Perjalanan Dinas{{-- Admin --}}
                         </a>
                     </li>
                     <li class="nav-item">

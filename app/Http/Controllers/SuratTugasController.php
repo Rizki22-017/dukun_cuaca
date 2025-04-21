@@ -13,7 +13,7 @@ class SuratTugasController extends Controller
     public function index()
     {
         // $surat = SuratTugas::all();
-        return view('surat.index', ["title" => "Surat", "subtitle" => "Daftar SPD"]);
+        return view('surat.index', ["title" => "St", "subtitle" => "Buat Surat Tugas"]);
     }
 
     /**
@@ -21,7 +21,7 @@ class SuratTugasController extends Controller
      */
     public function create()
     {
-        return view('surat.create', ["title" => "Surat", "subtitle" => "Data Surat"]);
+        return view('surat.create', ["title" => "St", "subtitle" => "Data Surat Tugas"]);
     }
 
     /**

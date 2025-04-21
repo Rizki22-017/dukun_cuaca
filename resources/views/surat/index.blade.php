@@ -14,7 +14,7 @@
             <div class="col-auto">
                 <button class="btn btn-primary">Filter</button>
             </div>
-            <a href={{ route('Surat.create') }}><button type="button" class="btn btn-success">Tambah Data</button></a>
+            <a href={{ route('St.create') }}><button type="button" class="btn btn-success">Tambah Data</button></a>
         </div>
 
         <div class="mb-2">

@@ -25,7 +25,9 @@ Route::put('/pimpinan/spd/{id}', [PimpinanController::class, 'updateSpd'])->name
 //route default pimpinan
 Route::resource('Pimpinan', PimpinanController::class);
 
-Route::resource('Surat', SuratTugasController::class);
+Route::resource('St', SuratTugasController::class);
+
+// Route::resource('Spd', SuratTugasController::class);
 
 Route::resource('NotaDinas', NotaDinasController::class);
 

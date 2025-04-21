@@ -2,31 +2,30 @@
 
 @section('container')
     @if (session('success'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: 'success',
-            text: '{{ session('success') }}',
-            showConfirmButton: false,
-            timer: 1500
-        })
-    </script>
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'success',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
     @endif
     @if ($errors->any())
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            html: `
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                html: `
                     @foreach ($errors->all() as $error)
                         {{ $error }}
                     @endforeach
             `,
-            showConfirmButton: true
-        });
-    </script>
+                showConfirmButton: true
+            });
+        </script>
     @endif
-
 
     <div class="container mt-4">
 
@@ -53,27 +52,28 @@
                 </thead>
                 <tbody>
                     @foreach ($pegawais as $pegawai)
-                    <tr>
-                        <td>{{ $pegawai->nip }}</td>
-                        <td>{{ $pegawai->nama_pegawai }}</td>
-                        <td>{{ $pegawai->pangkat_golongan }}</td>
-                        <td>{{ $pegawai->jabatan }}</td>
-                        <td>{{ $pegawai->bagian_kerja }}</td>
-                        <td>{{ $pegawai->tanggal_lahir }}</td>
-                        <td>
-                            <a href="{{ route('Pegawai.edit', $pegawai->id_pegawai) }}" class="btn btn-outline-primary btn-sm">Edit</a>
+                        <tr>
+                            <td>{{ $pegawai->nip }}</td>
+                            <td>{{ $pegawai->nama_pegawai }}</td>
+                            <td>{{ $pegawai->pangkat_golongan }}</td>
+                            <td>{{ $pegawai->jabatan }}</td>
+                            <td>{{ $pegawai->bagian_kerja }}</td>
+                            <td>{{ $pegawai->tanggal_lahir }}</td>
+                            <td>
+                                <a href="{{ route('Pegawai.edit', $pegawai->id_pegawai) }}"
+                                    class="btn btn-outline-primary btn-sm">Edit</a>
 
-                            <button class="btn btn-outline-danger btn-sm"
-                            onclick="confirmDelete({{ $pegawai->id_pegawai }})">Delete</button>
+                                <button class="btn btn-outline-danger btn-sm"
+                                    onclick="confirmDelete({{ $pegawai->id_pegawai }})">Delete</button>
 
-                            <form id="delete-form-{{ $pegawai->id_pegawai }}"
-                                action="{{ route('Pegawai.destroy', $pegawai->id_pegawai) }}" method="POST"
-                                style="display: none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
-                        </td>
-                    </tr>
+                                <form id="delete-form-{{ $pegawai->id_pegawai }}"
+                                    action="{{ route('Pegawai.destroy', $pegawai->id_pegawai) }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>

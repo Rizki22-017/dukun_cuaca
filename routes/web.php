@@ -11,8 +11,6 @@ use App\Http\Controllers\PimpinanController;
 
 Route::resource('/', HomeController::class);
 
-Route::get('/Admin', [AdminController::class, 'index']);
-
 Route::resource('Pegawai', PegawaiController::class);
 
 //route custom pimpinan

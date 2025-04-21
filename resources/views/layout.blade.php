@@ -65,7 +65,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-white {{ $title === 'Admin' ? 'active' : '' }}" href="/Admin">
                             <span data-feather="file" class="align-text-bottom"></span>
-                            Data Admin {{-- Admin --}}
+                            Menu Admin {{-- Admin --}}
                         </a>
                     </li>
                     <li class="nav-item">

@@ -47,6 +47,28 @@
                 <div class="mb-3">
                     <label class="form-label">Wewenang</label>
                     <div class="form-check">
+                        <input class="form-check-input wewenang-checkbox" type="checkbox" id="pegawai_biasa" name="wewenang[]"
+                            value="Pegawai biasa"
+                            {{ is_array(old('wewenang', $pegawai->wewenang)) && in_array('Pegawai biasa', old('wewenang', $pegawai->wewenang)) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="pegawai_biasa">Pegawai Biasa</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input wewenang-checkbox" type="checkbox" id="pimpinan_st" name="wewenang[]"
+                            value="Pimpinan ST"
+                            {{ is_array(old('wewenang', $pegawai->wewenang)) && in_array('Pimpinan ST', old('wewenang', $pegawai->wewenang)) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="pimpinan_st">Pimpinan ST</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input wewenang-checkbox" type="checkbox" id="pimpinan_spd" name="wewenang[]"
+                            value="Pimpinan SPD"
+                            {{ is_array(old('wewenang', $pegawai->wewenang)) && in_array('Pimpinan SPD', old('wewenang', $pegawai->wewenang)) ? 'checked' : '' }}>
+                        <label class="form-check-label" for="pimpinan_spd">Pimpinan SPD</label>
+                    </div>
+                </div>
+
+                {{-- <div class="mb-3">
+                    <label class="form-label">Wewenang</label>
+                    <div class="form-check">
                         <input class="form-check-input" type="checkbox" id="pegawai" name="wewenang[]" value="pegawai">
                         <label class="form-check-label" for="pegawai">Pegawai</label>
                     </div>
@@ -60,10 +82,37 @@
                             value="pimpinan_spd">
                         <label class="form-check-label" for="pimpinan_spd">Pimpinan SPD</label>
                     </div>
-                </div>
+                </div> --}}
 
                 <button type="submit" class="btn btn-success">Update</button>
             </div>
         </form>
     </div>
+
+    <script>
+        function toggleCheckboxLogic() {
+            const pegawaiBiasa = document.getElementById('pegawai_biasa');
+            const otherCheckboxes = [document.getElementById('pimpinan_st'), document.getElementById('pimpinan_spd')];
+
+            pegawaiBiasa.addEventListener('change', function () {
+                otherCheckboxes.forEach(cb => cb.disabled = this.checked);
+            });
+
+            otherCheckboxes.forEach(cb => {
+                cb.addEventListener('change', function () {
+                    pegawaiBiasa.disabled = otherCheckboxes.some(cb => cb.checked);
+                });
+            });
+
+            // Inisialisasi saat load
+            if (pegawaiBiasa.checked) {
+                otherCheckboxes.forEach(cb => cb.disabled = true);
+            }
+            if (otherCheckboxes.some(cb => cb.checked)) {
+                pegawaiBiasa.disabled = true;
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', toggleCheckboxLogic);
+    </script>
 @endsection

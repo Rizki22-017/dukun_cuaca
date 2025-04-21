@@ -47,6 +47,7 @@
                         <th scope="col">Jabatan</th>
                         <th scope="col">Bagian Kerja</th>
                         <th scope="col">Tanggal Lahir</th>
+                        <th scope="col">Wewenang</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -59,6 +60,13 @@
                             <td>{{ $pegawai->jabatan }}</td>
                             <td>{{ $pegawai->bagian_kerja }}</td>
                             <td>{{ $pegawai->tanggal_lahir }}</td>
+                            <td>
+                                @if(is_array($pegawai->wewenang))
+                                    {{ implode(', ', $pegawai->wewenang) }}
+                                @else
+                                    {{ $pegawai->wewenang }}
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{ route('Pegawai.edit', $pegawai->id_pegawai) }}"
                                     class="btn btn-outline-primary btn-sm">Edit</a>

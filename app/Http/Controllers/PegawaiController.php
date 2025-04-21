@@ -36,6 +36,8 @@ class PegawaiController extends Controller
             'jabatan' => 'required|string|max:15',
             'bagian_kerja' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
+            'wewenang' => 'required|array',
+            'wewenang.*' => 'in:' . implode(',', array_map(fn($w) => $w->value, \App\WewenangEnum::cases())),
         ]);
 
         Pegawai::create($validateData);
@@ -57,6 +59,7 @@ class PegawaiController extends Controller
     public function edit($id)
     {
         $pegawai = Pegawai::where('id_pegawai', $id)->firstOrFail();
+        $pegawai->wewenang = $pegawai->wewenang ?? 'Pegawai biasa';
 
         return view('pegawai.edit', compact('pegawai'), [
             "title" => "Pegawai",
@@ -79,6 +82,8 @@ class PegawaiController extends Controller
             'jabatan' => 'required|string|max:15',
             'bagian_kerja' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
+            'wewenang' => 'required|array',
+            'wewenang.*' => 'in:' . implode(',', array_map(fn($w) => $w->value, \App\WewenangEnum::cases())),
         ]);
 
         $pegawai->update($validateData);

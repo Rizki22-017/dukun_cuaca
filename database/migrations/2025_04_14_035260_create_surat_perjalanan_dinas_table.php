@@ -12,8 +12,8 @@ return new class extends Migration {
             $table->string('nomor_st', 25);
             $table->foreign('nomor_st')->references('nomor_st')->on('surat_tugases')->onDelete('cascade');
             // $table->foreignId('id_pimpinan_spd')->constrained('pimpinan_spd')->onDelete('cascade');
-            $table->foreignId('id_pimpinan_spd')
-                ->constrained('pimpinan_spds', 'id_pimpinan_spd')
+            $table->foreignId('id_pegawai')
+                ->constrained('pegawais', 'id_pegawai')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->date('tgl_spd');

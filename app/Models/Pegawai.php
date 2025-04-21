@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\WewenangEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +21,11 @@ class Pegawai extends Model
         'jabatan',
         'bagian_kerja',
         'tanggal_lahir',
+        'wewenang',
+    ];
+
+    protected $casts = [
+        'wewenang' => 'array',
     ];
 
     public function pimpinanst(){

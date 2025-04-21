@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->string('jabatan', 15);
             $table->string('bagian_kerja', 50);
             $table->date('tanggal_lahir');
+            $table->json('wewenang')->nullable();
             $table->timestamps();
         });
     }

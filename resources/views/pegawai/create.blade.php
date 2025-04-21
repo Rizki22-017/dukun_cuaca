@@ -1,6 +1,41 @@
 @extends('layout')
 
 @section('container')
+    @if (session('success'))
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil',
+                text: '{{ session('success') }}',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        </script>
+    @endif
+    @if ($errors->any())
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                html: `
+                    @foreach ($errors->all() as $error)
+                        {{ $error }}
+                    @endforeach
+            `,
+                showConfirmButton: true
+            });
+        </script>
+    @endif
+    @if (session('warning'))
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Perhatian',
+                text: '{{ session('warning') }}',
+                showConfirmButton: true
+            });
+        </script>
+    @endif
     <div class="container mt-4">
         <form action="{{ route('Pegawai.store') }}" method="POST">
             @csrf
@@ -91,4 +126,23 @@
         document.addEventListener('DOMContentLoaded', toggleCheckboxLogic);
     </script> --}}
 
+    <script>
+        function confirmDelete(pegawaiId) {
+            Swal.fire({
+                title: 'Apakah anda yakin?',
+                text: "Data yang dihapus tidak dapat dikembalikan",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    console.log(`Submitting delete form for pegawai ID: ${pegawaiId}`);
+                    document.getElementById(`delete-form-${pegawaiId}`).submit();
+                }
+            });
+        }
+    </script>
 @endsection

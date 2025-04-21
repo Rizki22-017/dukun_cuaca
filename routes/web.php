@@ -11,16 +11,10 @@ use App\Http\Controllers\PimpinanController;
 
 Route::resource('/', HomeController::class);
 
+Route::resource('Admin', AdminController::class);
+
 Route::resource('Pegawai', PegawaiController::class);
 
-//route custom pimpinan
-Route::get('Pimpinan/createspd', [PimpinanController::class, 'createSpd'])->name('Pimpinan.createSpd');
-Route::post('Pimpinan/storespd', [PimpinanController::class, 'storeSpd'])->name('Pimpinan.storeSpd');
-Route::delete('Pimpinan/delete-spd/{id}', [PimpinanController::class, 'destroySpd'])->name('Pimpinan.destroySpd');
-Route::get('/pimpinan/spd/{id}/edit', [PimpinanController::class, 'editSpd'])->name('Pimpinan.editSpd');
-Route::put('/pimpinan/spd/{id}', [PimpinanController::class, 'updateSpd'])->name('Pimpinan.updateSpd');
-
-//route default pimpinan
 Route::resource('Pimpinan', PimpinanController::class);
 
 Route::resource('St', SuratTugasController::class);

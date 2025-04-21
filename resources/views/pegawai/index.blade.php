@@ -5,7 +5,7 @@
         <script>
             Swal.fire({
                 icon: 'success',
-                title: 'success',
+                title: 'Berhasil',
                 text: '{{ session('success') }}',
                 showConfirmButton: false,
                 timer: 1500
@@ -22,6 +22,16 @@
                         {{ $error }}
                     @endforeach
             `,
+                showConfirmButton: true
+            });
+        </script>
+    @endif
+    @if (session('warning'))
+        <script>
+            Swal.fire({
+                icon: 'warning',
+                title: 'Perhatian',
+                text: '{{ session('warning') }}',
                 showConfirmButton: true
             });
         </script>

@@ -41,7 +41,7 @@
                     <input type="date" name="tanggal_lahir" class="form-control" required>
                 </div>
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label class="form-label">Wewenang</label>
                     <div class="form-check">
                         <input class="form-check-input wewenang-checkbox" type="checkbox" id="pegawai_biasa" name="wewenang[]"
@@ -58,18 +58,6 @@
                             value="Pimpinan SPD" {{ is_array(old('wewenang')) && in_array('Pimpinan SPD', old('wewenang')) ? 'checked' : '' }}>
                         <label class="form-check-label" for="pimpinan_spd">Pimpinan SPD</label>
                     </div>
-                </div>
-
-                {{-- <div class="mb-3">
-                    <label class="form-label">Wewenang</label>
-                    <select name="wewenang" class="form-control" required>
-                        @foreach (\App\WewenangEnum::cases() as $wewenang)
-                            <option value="{{ $wewenang->value }}"
-                                {{ old('wewenang') === $wewenang->value ? 'selected' : '' }}>
-                                {{ $wewenang->label() }}
-                            </option>
-                        @endforeach
-                    </select>
                 </div> --}}
 
                 <button type="submit" class="btn btn-primary mb-4">Simpan</button>
@@ -77,7 +65,7 @@
         </form>
     </div>
 
-    <script>
+    {{-- <script>
         function toggleCheckboxLogic() {
             const pegawaiBiasa = document.getElementById('pegawai_biasa');
             const otherCheckboxes = [document.getElementById('pimpinan_st'), document.getElementById('pimpinan_spd')];
@@ -92,7 +80,6 @@
                 });
             });
 
-            // Inisialisasi saat load
             if (pegawaiBiasa.checked) {
                 otherCheckboxes.forEach(cb => cb.disabled = true);
             }
@@ -102,6 +89,6 @@
         }
 
         document.addEventListener('DOMContentLoaded', toggleCheckboxLogic);
-    </script>
+    </script> --}}
 
 @endsection

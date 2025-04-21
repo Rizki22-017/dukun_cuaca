@@ -97,7 +97,8 @@
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Hapus'
+                confirmButtonText: 'Ya, Hapus',
+                cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
                     console.log(`Submitting delete form for pegawai ID: ${pegawaiId}`);

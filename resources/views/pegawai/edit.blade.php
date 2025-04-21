@@ -44,7 +44,7 @@
                         required>
                 </div>
 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                     <label class="form-label">Wewenang</label>
                     <div class="form-check">
                         <input class="form-check-input wewenang-checkbox" type="checkbox" id="pegawai_biasa" name="wewenang[]"
@@ -64,32 +64,14 @@
                             {{ is_array(old('wewenang', $pegawai->wewenang)) && in_array('Pimpinan SPD', old('wewenang', $pegawai->wewenang)) ? 'checked' : '' }}>
                         <label class="form-check-label" for="pimpinan_spd">Pimpinan SPD</label>
                     </div>
-                </div>
-
-                {{-- <div class="mb-3">
-                    <label class="form-label">Wewenang</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="pegawai" name="wewenang[]" value="pegawai">
-                        <label class="form-check-label" for="pegawai">Pegawai</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="pimpinan_st" name="wewenang[]"
-                            value="pimpinan_st">
-                        <label class="form-check-label" for="pimpinan_st">Pimpinan ST</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="pimpinan_spd" name="wewenang[]"
-                            value="pimpinan_spd">
-                        <label class="form-check-label" for="pimpinan_spd">Pimpinan SPD</label>
-                    </div>
                 </div> --}}
 
-                <button type="submit" class="btn btn-success">Update</button>
+                <button type="submit" class="btn btn-success mb-4">Perbarui</button>
             </div>
         </form>
     </div>
 
-    <script>
+    {{-- <script>
         function toggleCheckboxLogic() {
             const pegawaiBiasa = document.getElementById('pegawai_biasa');
             const otherCheckboxes = [document.getElementById('pimpinan_st'), document.getElementById('pimpinan_spd')];
@@ -104,7 +86,6 @@
                 });
             });
 
-            // Inisialisasi saat load
             if (pegawaiBiasa.checked) {
                 otherCheckboxes.forEach(cb => cb.disabled = true);
             }
@@ -114,5 +95,5 @@
         }
 
         document.addEventListener('DOMContentLoaded', toggleCheckboxLogic);
-    </script>
+    </script> --}}
 @endsection

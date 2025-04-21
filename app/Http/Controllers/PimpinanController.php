@@ -14,24 +14,24 @@ class PimpinanController extends Controller
      */
     public function index()
     {
-        $pimpinansts = PimpinanSt::with('pegawai')->get();
-        $pimpinanspds = PimpinanSpd::with('pegawai')->get();
+        $pegawais = Pegawai::where('wewenang', 'like', '%Pimpinan%')->get();
 
-        return view('pimpinan.index', compact('pimpinansts', 'pimpinanspds'), [
+        return view('pimpinan.index', compact('pegawais'), [
             "title" => "Pimpinan",
-            "subtitle" => "Pimpinan"
+            "subtitle" => "Data Pimpinan"
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $pegawais = Pegawai::all();
-        return view('pimpinan.createst', compact('pegawais'), [
+        $pegawais = Pegawai::whereJsonContains('wewenang', 'Pegawai biasa')->get();
+        return view('pimpinan.create', compact('pegawais'), [
             "title" => "Pimpinan",
-            "subtitle" => "Pimpinan dengan Kewenangan Penerbitan Surat Tugas",
+            "subtitle" => "Pimpinan dengan Kewenangan Penerbitan Surat",
         ]);
 
     }
@@ -43,47 +43,26 @@ class PimpinanController extends Controller
     {
         $request->validate([
             'id_pegawai' => 'required|exists:pegawais,id_pegawai',
+            'wewenang' => 'required|array',
+            'wewenang.*' => 'in:Pimpinan ST,Pimpinan SPD',
         ]);
 
-        if (PimpinanSt::where('id_pegawai', $request->id_pegawai)->exists()) {
-            return redirect()->route('Pimpinan.index')->withErrors(['id_pegawai' => 'Pegawai sudah terdaftar sebagai pimpinan ST']);
+        $pegawai = Pegawai::where('id_pegawai', $request->id_pegawai)->firstOrFail();
+
+        $currentWewenang = $pegawai->wewenang ?? [];
+        if (!is_array($currentWewenang)) {
+            $currentWewenang = json_decode($currentWewenang, true);
         }
 
-        PimpinanSt::create([
-            'id_pegawai' => $request->id_pegawai,
+        $filteredWewenang = array_diff($currentWewenang, ['Pegawai biasa']);
+
+        $updatedWewenang = array_unique(array_merge($filteredWewenang, $request->wewenang));
+
+        $pegawai->update([
+            'wewenang' => $updatedWewenang
         ]);
 
-        return redirect()->route('Pimpinan.index')->with('success', 'Data berhasil ditambahkan')->with('activeTab', 'pst-tab');
-    }
-
-    public function createSpd()
-    {
-        $pegawais = Pegawai::all();
-        return view('pimpinan.createspd', compact('pegawais'), [
-            "title" => "Pimpinan",
-            "subtitle" => "Pimpinan dengan Kewenangan Penerbitan Surat Perjalanan Dinas",
-        ]);
-
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function storeSpd(Request $request)
-    {
-        $request->validate([
-            'id_pegawai' => 'required|exists:pegawais,id_pegawai',
-        ]);
-
-        if (PimpinanSpd::where('id_pegawai', $request->id_pegawai)->exists()) {
-            return redirect()->route('Pimpinan.index')->withErrors(['id_pegawai' => 'Pegawai sudah terdaftar sebagai pimpinan SPD']);
-        }
-
-        PimpinanSpd::create([
-            'id_pegawai' => $request->id_pegawai,
-        ]);
-
-        return redirect()->route('Pimpinan.index')->with('success', 'Data berhasil ditambahkan')->with('activeTab', 'pspd-tab');
+        return redirect()->route('Pimpinan.index')->with('success', 'Data Pimpinan Berhasil Ditambahkan');
     }
 
     /**
@@ -97,90 +76,51 @@ class PimpinanController extends Controller
     //ini untuk pimpinan st
     public function edit($id)
     {
-        $pimpinan = PimpinanSt::findOrFail($id);
-        $pegawais = Pegawai::all();
+        $pegawai = Pegawai::where('id_pegawai', $id)->firstOrFail();
 
-        return view('pimpinan.editst', compact('pimpinan', 'pegawais'), [
-            "title" => "Edit Pimpinan ST",
-            "subtitle" => "Edit Pimpinan Surat Tugas",
+        // Ubah wewenang menjadi array jika disimpan dalam bentuk string
+        $pegawai->wewenang = is_array($pegawai->wewenang)
+            ? $pegawai->wewenang
+            : explode(',', $pegawai->wewenang);
+
+        return view('pimpinan.edit', compact('pegawai'), [
+            "title" => "Pimpinan",
+            "subtitle" => "Edit Wewenang Pimpinan",
         ]);
     }
+
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'id_pegawai' => 'required|exists:pegawais,id_pegawai',
+        $pegawai = Pegawai::where('id_pegawai', $id)->firstOrFail();
+
+        $validatedData = $request->validate([
+            'wewenang' => 'required|array',
+            'wewenang.*' => 'in:Pimpinan ST,Pimpinan SPD',
         ]);
 
-        $pimpinan = PimpinanSt::findOrFail($id);
+        // Simpan array sebagai string (jika kolom di database berupa string, misalnya tipe `text` atau `varchar`)
+        $pegawai->wewenang = implode(',', $validatedData['wewenang']);
+        $pegawai->save();
 
-        if (PimpinanSt::where('id_pegawai', $request->id_pegawai)
-            ->where('id_pimpinan_st', '!=', $pimpinan->id_pimpinan_st)
-            ->exists()) {
-            return redirect()->route('Pimpinan.edit', $id)->withErrors(['id_pegawai' => 'Pegawai sudah terdaftar sebagai pimpinan ST']);
-        }
-
-        $pimpinan->update([
-            'id_pegawai' => $request->id_pegawai,
-        ]);
-
-        return redirect()->route('Pimpinan.index')->with('success', 'Data Pimpinan ST berhasil diperbarui')->with('activeTab', 'pst-tab');
+        return redirect()->route('Pimpinan.index')->with('success', 'Wewenang pimpinan berhasil diperbarui.');
     }
 
-    public function editSpd($id)
-    {
-        $pimpinan = PimpinanSpd::findOrFail($id);
-        $pegawais = Pegawai::all();
-
-        return view('pimpinan.editspd', compact('pimpinan', 'pegawais'), [
-            "title" => "Edit Pimpinan SPD",
-            "subtitle" => "Edit Pimpinan Surat Perjalanan Dinas",
-        ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function updateSpd(Request $request, $id)
-    {
-        $request->validate([
-            'id_pegawai' => 'required|exists:pegawais,id_pegawai',
-        ]);
-
-        $pimpinan = PimpinanSpd::findOrFail($id);
-
-        if (PimpinanSpd::where('id_pegawai', $request->id_pegawai)
-            ->where('id_pimpinan_spd', '!=', $pimpinan->id_pimpinan_spd)
-            ->exists()) {
-            return redirect()->route('Pimpinan.index', $id)->withErrors(['id_pegawai' => 'Pegawai sudah terdaftar sebagai pimpinan SPD']);
-        }
-
-        $pimpinan->update([
-            'id_pegawai' => $request->id_pegawai,
-        ]);
-
-        return redirect()->route('Pimpinan.index')->with('success', 'Data Pimpinan SPD berhasil diperbarui')->with('activeTab', 'pspd-tab');
-    }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
-        $pimpinan = PimpinanSt::findOrFail($id);
-        $pimpinan->delete();
+        $pegawai = Pegawai::where('id_pegawai', $id)->firstOrFail();
+        $pegawai->update([
+            'wewenang' => ['Pegawai biasa']
+        ]);
 
-        return redirect()->route('Pimpinan.index')->with('success', 'Pimpinan ST berhasil dihapus')->with('activeTab', 'pst-tab');
+        return redirect()->route('Pimpinan.index')->with('success', 'Pimpinan berhasil dikembalikan menjadi Pegawai Biasa');
     }
 
-    public function destroySpd($id)
-    {
-        $pimpinan = PimpinanSpd::findOrFail($id);
-        $pimpinan->delete();
-
-        return redirect()->route('Pimpinan.index')->with('success', 'Pimpinan SPD berhasil dihapus')->with('activeTab', 'pspd-tab');
-    }
 }

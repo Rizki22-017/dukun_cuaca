@@ -12,7 +12,7 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        $pegawais = pegawai::all();
+        $pegawais = Pegawai::whereJsonContains('wewenang', 'Pegawai biasa')->get();
         return view('pegawai.index', compact(['pegawais']), ["title" => "Pegawai", "subtitle" => "Data Pegawai"]);
     }
 
@@ -36,9 +36,11 @@ class PegawaiController extends Controller
             'jabatan' => 'required|string|max:15',
             'bagian_kerja' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
-            'wewenang' => 'required|array',
-            'wewenang.*' => 'in:' . implode(',', array_map(fn($w) => $w->value, \App\WewenangEnum::cases())),
+            // 'wewenang' => 'required|array',
+            // 'wewenang.*' => 'in:' . implode(',', array_map(fn($w) => $w->value, \App\WewenangEnum::cases())),
         ]);
+
+        $validateData['wewenang'] = ['Pegawai biasa'];
 
         Pegawai::create($validateData);
 
@@ -59,7 +61,8 @@ class PegawaiController extends Controller
     public function edit($id)
     {
         $pegawai = Pegawai::where('id_pegawai', $id)->firstOrFail();
-        $pegawai->wewenang = $pegawai->wewenang ?? 'Pegawai biasa';
+        // $pegawai->wewenang = $pegawai->wewenang ?? 'Pegawai biasa';
+        $pegawai->wewenang = is_array($pegawai->wewenang) ? $pegawai->wewenang : ['Pegawai biasa'];
 
         return view('pegawai.edit', compact('pegawai'), [
             "title" => "Pegawai",
@@ -82,11 +85,17 @@ class PegawaiController extends Controller
             'jabatan' => 'required|string|max:15',
             'bagian_kerja' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
-            'wewenang' => 'required|array',
+            'wewenang' => 'nullable|array',
             'wewenang.*' => 'in:' . implode(',', array_map(fn($w) => $w->value, \App\WewenangEnum::cases())),
         ]);
 
-        $pegawai->update($validateData);
+        $wewenang = $validateData['wewenang'] ?? ['Pegawai biasa'];
+
+        // $pegawai->update($validateData);
+        $pegawai->update([
+            ...$validateData,
+            'wewenang' => $wewenang,
+        ]);
 
         return redirect()->route('Pegawai.index')->with('success', 'Data Pegawai Berhasil Diperbarui');
     }

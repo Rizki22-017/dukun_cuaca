@@ -27,8 +27,6 @@ Route::resource('Pimpinan', PimpinanController::class);
 
 Route::resource('St', SuratTugasController::class);
 
-// Route::resource('Spd', SuratTugasController::class);
-
 Route::resource('NotaDinas', NotaDinasController::class);
 
 Route::resource('LaporanPerjalananDinas', LaporanPerjalananDinasController::class);

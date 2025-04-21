@@ -87,12 +87,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white {{ $title === 'Spd' ? 'active' : '' }}" href="/Spd">
-                            <span data-feather="bar-chart-2" class="align-text-bottom"></span>
-                            Surat Perjalanan Dinas{{-- Admin --}}
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link text-white {{ $title === 'Nota Dinas' ? 'active' : '' }}" href="/NotaDinas">
                             <span data-feather="layers" class="align-text-bottom"></span>
                             Nota Dinas {{-- Pimpinan --}}

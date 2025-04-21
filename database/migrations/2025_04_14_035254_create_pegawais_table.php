@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->string('pangkat_golongan', 50);
             $table->string('jabatan', 15);
             $table->string('bagian_kerja', 50);
-            $table->string('tanggal_lahir', 15); // Bisa diubah ke date kalau memungkinkan
+            $table->date('tanggal_lahir');
             $table->timestamps();
         });
     }

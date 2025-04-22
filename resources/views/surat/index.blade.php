@@ -67,7 +67,7 @@
                         <th scope="col">Pemberi Perintah</th>
                         <th scope="col">Yang Diperintah</th>
                         <th scope="col">Tujuan</th>
-                        <th scope="col">Kendaraan</th>
+                        {{-- <th scope="col">Kendaraan</th> --}}
                         <th scope="col">Tgl Berangkat</th>
                         <th scope="col">Tgl Kembali</th>
                         <th scope="col">Download</th>
@@ -78,14 +78,14 @@
                     @foreach ($surats as $surat)
                         <tr>
                             <td>{{ $surat->nomor_surat }}</td>
-                            <td>{{ $surat->created_at->format('d/m/Y') }}</td>
+                            <td>{{ $surat->created_at->format('d/m/y') }}</td>
                             <td>{{ $surat->tugas }}</td>
                             <td>{{ $surat->pejabat->nama_pegawai ?? '-' }}</td>
                             <td>{{ $surat->pegawaiBertugas->nama_pegawai ?? '-' }}</td>
                             <td>{{ $surat->lokasi_tujuan }}</td>
-                            <td>{{ implode(', ', $surat->kendaraan ?? []) }}</td>
-                            <td>{{ \Carbon\Carbon::parse($surat->tgl_mulai)->format('d/m/Y') }}</td>
-                            <td>{{ \Carbon\Carbon::parse($surat->tgl_selesai)->format('d/m/Y') }}</td>
+                            {{-- <td>{{ implode(', ', $surat->kendaraan ?? []) }}</td> --}}
+                            <td>{{ \Carbon\Carbon::parse($surat->tgl_mulai)->format('d/m/y') }}</td>
+                            <td>{{ \Carbon\Carbon::parse($surat->tgl_selesai)->format('d/m/y') }}</td>
                             <td>
                                 <button class="btn btn-outline-primary btn-sm">ST</button>
                                 <button class="btn btn-outline-primary btn-sm">SPD</button>

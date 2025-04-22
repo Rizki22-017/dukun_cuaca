@@ -135,15 +135,13 @@
                                             {{ $pegawai->nama_pegawai }}</option>
                                     @endforeach
                                 </select>
-                                <button class="btn btn-outline-danger" type="button" onclick="hapusDropdownPengikut(this)"
-                                    disabled>&times;</button>
+                                <button class="btn btn-outline-danger" type="button" onclick="hapusDropdownPengikut(this)">&times;</button>
                             </div>
                         @endforeach
-
                     </div>
-                    <button class="btn btn-outline-success mt-2" type="button" onclick="tambahDropdownPengikut()">Tambah
-                        Pengikut</button>
+                    <button class="btn btn-outline-success mt-2" type="button" onclick="tambahDropdownPengikut()">Tambah Pengikut</button>
                 </div>
+
 
                 <div class="row mb-3">
                     <div class="col-md-6">
@@ -182,6 +180,7 @@
             select.classList.add('form-select');
 
             var option = document.createElement('option');
+            option.value = '';
             option.selected = true;
             option.disabled = true;
             option.textContent = 'Pilih pengikut';
@@ -199,15 +198,22 @@
             button.type = 'button';
             button.setAttribute('onclick', 'hapusDropdownPengikut(this)');
             button.textContent = '×';
-            button.disabled = false;
             newDiv.appendChild(select);
             newDiv.appendChild(button);
             container.appendChild(newDiv);
         }
 
         function hapusDropdownPengikut(button) {
-            var container = document.getElementById('pengikut-container');
-            container.removeChild(button.parentElement);
+            var select = button.parentElement.querySelector('select');
+
+            if (document.querySelectorAll('#pengikut-container .input-group').length === 1) {
+                select.value = '';
+            } else {
+                var container = document.getElementById('pengikut-container');
+                container.removeChild(button.parentElement);
+            }
         }
+
+
     </script>
 @endsection

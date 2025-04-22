@@ -31,7 +31,7 @@ return new class extends Migration
             $table->json('pengikut')->nullable();
             $table->string('sumber_dana');
             $table->string('akun');
-            $table->string('keterangan');
+            $table->string('keterangan')->nullable();
             $table->timestamps();
         });
     }

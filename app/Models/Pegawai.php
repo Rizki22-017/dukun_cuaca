@@ -28,11 +28,16 @@ class Pegawai extends Model
         'wewenang' => 'array',
     ];
 
-    public function pimpinanst(){
-        return $this->hasMany(PimpinanSt::class);
+    public function pejabat(){
+        return $this->hasMany(Surat::class, 'id_pejabat', 'id_pegawai');
     }
 
-    public function pimpinanspd(){
-        return $this->hasMany(PimpinanSpd::class);
+    public function pegawaiBertugas(){
+        return $this->hasMany(Surat::class, 'id_pegawai_bertugas', 'id_pegawai');
+    }
+
+    public function suratPengikut()
+    {
+        return $this->hasMany(Surat::class, 'id_pegawai', 'pengikut');
     }
 }

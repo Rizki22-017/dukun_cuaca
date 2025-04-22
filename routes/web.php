@@ -8,6 +8,7 @@ use App\Http\Controllers\NotaDinasController;
 use App\Http\Controllers\SuratTugasController;
 use App\Http\Controllers\LaporanPerjalananDinasController;
 use App\Http\Controllers\PimpinanController;
+use App\Http\Controllers\SuratController;
 
 Route::resource('/', HomeController::class);
 
@@ -17,7 +18,7 @@ Route::resource('Pegawai', PegawaiController::class);
 
 Route::resource('Pimpinan', PimpinanController::class);
 
-Route::resource('St', SuratTugasController::class);
+Route::resource('St', SuratController::class);
 
 Route::resource('NotaDinas', NotaDinasController::class);
 

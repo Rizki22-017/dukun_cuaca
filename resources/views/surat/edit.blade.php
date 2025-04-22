@@ -38,13 +38,15 @@
     @endif
 
     <div class="container mt-4">
-        <form action="{{ route('St.store') }}" method="POST">
+        <form action="{{ route('St.update', $surat->id) }}" method="POST">
             @csrf
+            @method('PUT')
             <div class="form-section">
 
                 <div class="mb-3">
                     <label class="form-label">Nomor Surat</label>
-                    <input type="text" name="nomor_surat" class="form-control" placeholder="Nomor Surat" required>
+                    <input type="text" name="nomor_surat" class="form-control" placeholder="Nomor Surat"
+                        value="{{ old('nomor_surat', $surat->nomor_surat) }}" required>
                 </div>
 
                 <div class="mb-3">
@@ -52,16 +54,17 @@
                     <select name="id_pejabat" class="form-select" required>
                         <option selected disabled>Pilih Pejabat</option>
                         @foreach ($pejabats as $pegawai)
-                            <option value="{{ $pegawai->id_pegawai }}">{{ $pegawai->nama_pegawai }}</option>
+                            <option value="{{ $pegawai->id_pegawai }}"
+                                {{ $surat->id_pejabat == $pegawai->id_pegawai ? 'selected' : '' }}>
+                                {{ $pegawai->nama_pegawai }}</option>
                         @endforeach
                     </select>
                 </div>
 
-
                 <div class="mb-3">
                     <label class="form-label">Maksud Perjalanan Dinas</label>
                     <input type="text" name="tugas" class="form-control" placeholder="Maksud Perjalanan Dinas"
-                        required>
+                        value="{{ old('tugas', $surat->tugas) }}" required>
                 </div>
 
                 <div class="row mb-3">
@@ -70,7 +73,8 @@
                         @foreach (['Darat', 'Laut', 'Udara'] as $jenis)
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="kendaraan[]"
-                                    value="{{ $jenis }}" id="kendaraan{{ $jenis }}">
+                                    value="{{ $jenis }}" id="kendaraan{{ $jenis }}"
+                                    {{ in_array($jenis, $surat->kendaraan) ? 'checked' : '' }}>
                                 <label class="form-check-label"
                                     for="kendaraan{{ $jenis }}">{{ $jenis }}</label>
                             </div>
@@ -80,24 +84,26 @@
                     <div class="col-md-4">
                         <label class="form-label">Tempat Berangkat</label>
                         <input type="text" name="lokasi_berangkat" class="form-control" placeholder="Tempat Berangkat"
-                            required>
+                            value="{{ old('lokasi_berangkat', $surat->lokasi_berangkat) }}" required>
                     </div>
 
                     <div class="col-md-4">
                         <label class="form-label">Tempat Tujuan</label>
                         <input type="text" name="lokasi_tujuan" class="form-control" placeholder="Tempat Tujuan"
-                            required>
+                            value="{{ old('lokasi_tujuan', $surat->lokasi_tujuan) }}" required>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
                         <label class="form-label">Tanggal Berangkat</label>
-                        <input type="date" name="tgl_mulai" class="form-control" required>
+                        <input type="date" name="tgl_mulai" class="form-control"
+                            value="{{ old('tgl_mulai', $surat->tgl_mulai) }}" required>
                     </div>
                     <div class="col-md-4">
                         <label class="form-label">Tanggal Kembali</label>
-                        <input type="date" name="tgl_selesai" class="form-control" required>
+                        <input type="date" name="tgl_selesai" class="form-control"
+                            value="{{ old('tgl_selesai', $surat->tgl_selesai) }}" required>
                     </div>
                 </div>
 
@@ -106,7 +112,9 @@
                     <select name="id_pegawai_bertugas" class="form-select" required>
                         <option selected disabled>Pilih Pegawai</option>
                         @foreach ($pegawais as $pegawai)
-                            <option value="{{ $pegawai->id_pegawai }}">{{ $pegawai->nama_pegawai }}</option>
+                            <option value="{{ $pegawai->id_pegawai }}"
+                                {{ $surat->id_pegawai_bertugas == $pegawai->id_pegawai ? 'selected' : '' }}>
+                                {{ $pegawai->nama_pegawai }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -114,36 +122,45 @@
                 <div class="mb-3">
                     <label class="form-label">Pengikut <span class="text-muted">(optional)</span></label>
                     <div id="pengikut-container">
-                        <div class="input-group mb-2">
-                            <select name="pengikut[]" class="form-select">
-                                <option selected disabled>Pilih pengikut</option>
-                                @foreach ($pegawais as $pegawai)
-                                    <option value="{{ $pegawai->id_pegawai }}">{{ $pegawai->nama_pegawai }}</option>
-                                @endforeach
-                            </select>
-                            <button class="btn btn-outline-danger" type="button" onclick="hapusDropdownPengikut(this)"
-                                disabled>&times;</button>
-                        </div>
+                        @foreach ($surat->pengikut as $pengikut_id)
+                            @php
+                                $pengikut = \App\Models\Pegawai::find($pengikut_id);
+                            @endphp
+                            <div class="input-group mb-2">
+                                <select name="pengikut[]" class="form-select">
+                                    <option selected disabled>Pilih pengikut</option>
+                                    @foreach ($pegawais as $pegawai)
+                                        <option value="{{ $pegawai->id_pegawai }}"
+                                            {{ $pegawai->id_pegawai == $pengikut->id_pegawai ? 'selected' : '' }}>
+                                            {{ $pegawai->nama_pegawai }}</option>
+                                    @endforeach
+                                </select>
+                                <button class="btn btn-outline-danger" type="button" onclick="hapusDropdownPengikut(this)"
+                                    disabled>&times;</button>
+                            </div>
+                        @endforeach
+
                     </div>
                     <button class="btn btn-outline-success mt-2" type="button" onclick="tambahDropdownPengikut()">Tambah
                         Pengikut</button>
                 </div>
 
-
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Instansi (Pembebanan Anggaran)</label>
-                        <input type="text" name="sumber_dana" class="form-control" placeholder="Instansi" required>
+                        <input type="text" name="sumber_dana" class="form-control" placeholder="Instansi"
+                            value="{{ old('sumber_dana', $surat->sumber_dana) }}" required>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Akun</label>
-                        <input type="text" name="akun" class="form-control" placeholder="Akun" required>
+                        <input type="text" name="akun" class="form-control" placeholder="Akun"
+                            value="{{ old('akun', $surat->akun) }}" required>
                     </div>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Keterangan Lain</label>
-                    <textarea name="keterangan" class="form-control" rows="2" placeholder="Keterangan lain"></textarea>
+                    <textarea name="keterangan" class="form-control" rows="2" placeholder="Keterangan lain">{{ old('keterangan', $surat->keterangan) }}</textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">Simpan</button>
@@ -169,7 +186,7 @@
             option.disabled = true;
             option.textContent = 'Pilih pengikut';
             select.appendChild(option);
-            
+
             @foreach ($pegawais as $pegawai)
                 var option = document.createElement('option');
                 option.value = '{{ $pegawai->id_pegawai }}';
@@ -191,25 +208,6 @@
         function hapusDropdownPengikut(button) {
             var container = document.getElementById('pengikut-container');
             container.removeChild(button.parentElement);
-        }
-    </script>
-    <script>
-        function confirmDelete(pegawaiId) {
-            Swal.fire({
-                title: 'Apakah anda yakin?',
-                text: "Data yang dihapus tidak dapat dikembalikan",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Hapus',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    console.log(`Submitting delete form for pegawai ID: ${pegawaiId}`);
-                    document.getElementById(`delete-form-${pegawaiId}`).submit();
-                }
-            });
         }
     </script>
 @endsection

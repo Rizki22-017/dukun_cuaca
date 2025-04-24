@@ -70,7 +70,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white {{ $title === 'Pegawai' ? 'active' : '' }}" href="/Pegawai">
-                            <span data-feather="shopping-cart" class="align-text-bottom"></span>
+                            <span data-feather="users" class="align-text-bottom"></span>
                             Data Pegawai {{-- Admin --}}
                         </a>
                     </li>
@@ -82,7 +82,7 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-white {{ $title === 'St' ? 'active' : '' }}" href="/St">
-                            <span data-feather="bar-chart-2" class="align-text-bottom"></span>
+                            <span data-feather="book-open" class="align-text-bottom"></span>
                             Surat Tugas{{-- Admin --}}
                         </a>
                     </li>
@@ -95,7 +95,7 @@
                     <li class="nav-item">
                         <a class="nav-link text-white {{ $title === 'Laporan Perjalanan Dinas' ? 'active' : '' }}"
                             href="/LaporanPerjalananDinas">
-                            <span data-feather="layers" class="align-text-bottom"></span>
+                            <span data-feather="archive" class="align-text-bottom"></span>
                             Laporan Perjalanan Dinas {{-- Pegawai, Pimpinan --}}
                         </a>
                     </li>

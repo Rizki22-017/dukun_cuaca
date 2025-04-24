@@ -49,14 +49,23 @@
 
                 <div class="mb-3">
                     <label class="form-label">Pejabat yang memberi perintah</label>
-                    <select name="id_pejabat" class="form-select" required>
-                        <option selected disabled>Pilih Pejabat</option>
-                        @foreach ($pejabats as $pegawai)
+                    <select name="id_pejabat_st" class="form-select" required>
+                        <option selected disabled>Pilih Pejabat ST</option>
+                        @foreach ($pimpinanST as $pegawai)
                             <option value="{{ $pegawai->id_pegawai }}">{{ $pegawai->nama_pegawai }}</option>
                         @endforeach
                     </select>
                 </div>
 
+                <div class="mb-3">
+                    <label class="form-label">Pejabat Surat Perjalanan Dinas</label>
+                    <select name="id_pejabat_spd" class="form-select" required>
+                        <option selected disabled>Pilih Pejabat SPD</option>
+                        @foreach ($pimpinanSPD as $pegawai)
+                            <option value="{{ $pegawai->id_pegawai }}">{{ $pegawai->nama_pegawai }}</option>
+                        @endforeach
+                    </select>
+                </div>
 
                 <div class="mb-3">
                     <label class="form-label">Maksud Perjalanan Dinas</label>
@@ -121,10 +130,12 @@
                                     <option value="{{ $pegawai->id_pegawai }}">{{ $pegawai->nama_pegawai }}</option>
                                 @endforeach
                             </select>
-                            <button class="btn btn-outline-danger" type="button" onclick="hapusDropdownPengikut(this)">&times;</button>
+                            <button class="btn btn-outline-danger" type="button"
+                                onclick="hapusDropdownPengikut(this)">&times;</button>
                         </div>
                     </div>
-                    <button class="btn btn-outline-success mt-2" type="button" onclick="tambahDropdownPengikut()">Tambah Pengikut</button>
+                    <button class="btn btn-outline-success mt-2" type="button" onclick="tambahDropdownPengikut()">Tambah
+                        Pengikut</button>
                 </div>
 
 

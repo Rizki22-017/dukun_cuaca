@@ -28,20 +28,18 @@ class SuratController extends Controller
      */
     public function create()
     {
-        $pejabats = Pegawai::whereJsonContains('wewenang', 'Pimpinan ST')
-            ->orWhereJsonContains('wewenang', 'Pimpinan SPD')
-            ->get();
-
+        $pimpinanST = Pegawai::whereJsonContains('wewenang', 'Pimpinan ST')->get();
+        $pimpinanSPD = Pegawai::whereJsonContains('wewenang', 'Pimpinan SPD')->get();
         $pegawais = Pegawai::all();
+
         return view('surat.create', [
             'title' => 'St',
             'subtitle' => 'Buat Surat Tugas',
-            'pejabats' => $pejabats,
+            'pimpinanST' => $pimpinanST,
+            'pimpinanSPD' => $pimpinanSPD,
             'pegawais' => $pegawais,
         ]);
     }
-
-
     /**
      * Store a newly created resource in storage.
      */

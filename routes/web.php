@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\NotaDinasController;
-use App\Http\Controllers\SuratTugasController;
 use App\Http\Controllers\LaporanPerjalananDinasController;
 use App\Http\Controllers\PimpinanController;
 use App\Http\Controllers\SuratController;

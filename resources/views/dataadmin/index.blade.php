@@ -28,7 +28,6 @@
     @endif
 
     <div class="container mt-4">
-
         <div class="row">
             <div class="col-4">
                 Jumlah Pimpinan <b>{{ $jumlahPimpinan }}</b>

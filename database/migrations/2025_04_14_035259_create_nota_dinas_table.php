@@ -7,16 +7,16 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
-        Schema::create('nota_dinases', function (Blueprint $table) {
-            $table->id('id_nota');
-            $table->string('judul');
-            $table->string('file_pdf');
+        Schema::create('nota_dinas', function (Blueprint $table) {
+            $table->id();
+            $table->string('nomor_surat');
+            $table->string('filename');
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('nota_dinases');
+        Schema::dropIfExists('nota_dinas');
     }
 };

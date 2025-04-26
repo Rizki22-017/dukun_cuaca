@@ -11,7 +11,10 @@ use App\Http\Controllers\PimpinanController;
 use App\Http\Controllers\SuratController;
 
 Route::resource('/', HomeController::class);
+
+//dokumen download
 Route::resource('/suratt', DokumenController::class);
+Route::get('/St/download/{id}', [DokumenController::class, 'downloadSt'])->name('st.download');
 
 Route::resource('Admin', AdminController::class);
 

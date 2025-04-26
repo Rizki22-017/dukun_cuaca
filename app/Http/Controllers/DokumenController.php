@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Surat;
 use PDF;
 
 // use Barryvdh\DomPDF\PDF;
@@ -16,6 +17,15 @@ class DokumenController extends Controller
     {
         $pdf = PDF::loadView('surat.st');
         return $pdf->stream('surat-preview.pdf');
+    }
+
+    public function downloadSt($id)
+    {
+        $surat = Surat::with(['notaDinas', 'pejabat', 'pegawaiBertugas'])->findOrFail($id);
+
+        $pdf = PDF::loadView('surat.st', compact('surat'));
+
+        return $pdf->download('surat-tugas-' . $surat->notaDinas->nomor_surat . '.pdf');
     }
 
     /**

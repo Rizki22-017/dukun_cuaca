@@ -87,7 +87,9 @@
                             <td>{{ \Carbon\Carbon::parse($surat->tgl_mulai)->format('d/m/y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($surat->tgl_selesai)->format('d/m/y') }}</td>
                             <td>
-                                <button class="btn btn-outline-primary btn-sm">ST</button>
+                                <a href="{{ route('st.download', $surat->id) }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                    ST
+                                </a>
                                 <button class="btn btn-outline-primary btn-sm">SPD</button>
                             </td>
                             <td>

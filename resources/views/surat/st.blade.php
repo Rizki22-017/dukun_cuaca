@@ -9,7 +9,7 @@
     <div style="text-align: center;">
         <span style="text-decoration: underline; font-weight: bold; font-size: 14pt;">SURAT TUGAS</span><br>
         <div style="margin-top: 8px;">
-            NOMOR: e.B/ME.02.04/016/KBB2/IX/2024
+            NOMOR: {{ $surat->notaDinas->nomor_surat }}
         </div>
     </div>
 

@@ -11,7 +11,7 @@ class Surat extends Model
     protected $table = 'surats';
 
     protected $fillable = [
-        'nomor_surat',
+        'id_nota_dinas',
         'id_pejabat',
         'tugas',
         'kendaraan',
@@ -42,5 +42,10 @@ class Surat extends Model
     public function pengikutPegawai()
     {
         return $this->belongsToMany(Pegawai::class, 'pegawais', 'id_pegawai', 'pengikut');
+    }
+
+    public function notaDinas()
+    {
+        return $this->belongsTo(NotaDinas::class, 'id_nota_dinas');
     }
 }

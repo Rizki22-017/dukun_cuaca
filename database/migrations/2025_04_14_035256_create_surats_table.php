@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('surats', function (Blueprint $table) {
             $table->id();
-            $table->string('nomor_surat');
+            $table->foreignId('id_nota_dinas')
+                ->constrained('nota_dinas')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreignId('id_pejabat')
                 ->constrained('pegawais', 'id_pegawai')
                 ->onUpdate('cascade')

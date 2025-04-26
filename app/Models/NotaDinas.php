@@ -8,5 +8,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class NotaDinas extends Model
 {
     use HasFactory;
-    protected $fillable = ['nomor_surat', 'filename'];
+    protected $fillable = [
+        'nomor_surat',
+        'filename'
+    ];
+
+    public function surats()
+    {
+        return $this->hasMany(Surat::class, 'id_nota_dinas');
+    }
+
 }

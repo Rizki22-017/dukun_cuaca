@@ -50,6 +50,7 @@
                             <option value="{{ $nota->id }}">{{ $nota->nomor_surat }}</option>
                         @endforeach
                     </select>
+                    <span style="font-size: 10pt"><i>*Tambahkan nomor surat yang belum tersedia di menu <a href="/NotaDinas"><i><b>Nota Dinas</b></i></a></span>
                 </div>
 
                 <div class="mb-3">

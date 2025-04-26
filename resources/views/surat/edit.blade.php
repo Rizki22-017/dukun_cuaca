@@ -45,9 +45,17 @@
 
                 <div class="mb-3">
                     <label class="form-label">Nomor Surat</label>
-                    <input type="text" name="nomor_surat" class="form-control" placeholder="Nomor Surat"
-                        value="{{ old('nomor_surat', $surat->nomor_surat) }}" required>
+                    <select name="id_nota_dinas" class="form-select" required>
+                        <option selected disabled>Pilih Nomor Surat</option>
+                        @foreach ($nomorSurats as $nota)
+                            <option value="{{ $nota->id }}"
+                                {{ $surat->id_nota_dinas == $nota->id ? 'selected' : '' }}>
+                                {{ $nota->nomor_surat }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
+
 
                 <div class="mb-3">
                     <label class="form-label">Pejabat yang memberi perintah</label>

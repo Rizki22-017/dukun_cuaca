@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NotaDinas;
 use App\Models\Pegawai;
 use App\Models\Surat;
 use Illuminate\Http\Request;
@@ -28,6 +29,9 @@ class SuratController extends Controller
      */
     public function create()
     {
+        $dipakai = Surat::pluck('id_nota_dinas');
+        $nomorSurats = NotaDinas::whereNotIn('id', $dipakai)->get();
+
         $pimpinanST = Pegawai::whereJsonContains('wewenang', 'Pimpinan ST')->get();
         $pimpinanSPD = Pegawai::whereJsonContains('wewenang', 'Pimpinan SPD')->get();
         $pegawais = Pegawai::all();
@@ -35,6 +39,7 @@ class SuratController extends Controller
         return view('surat.create', [
             'title' => 'St',
             'subtitle' => 'Buat Surat Tugas',
+            'nomorSurats' => $nomorSurats,
             'pimpinanST' => $pimpinanST,
             'pimpinanSPD' => $pimpinanSPD,
             'pegawais' => $pegawais,
@@ -46,8 +51,9 @@ class SuratController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nomor_surat' => 'required|string|max:255',
-            'id_pejabat' => 'required|exists:pegawais,id_pegawai',
+            'id_nota_dinas' => 'required|exists:nota_dinas,id',
+            'id_pejabat_st' => 'nullable|exists:pegawais,id_pegawai',
+            'id_pejabat_spd' => 'nullable|exists:pegawais,id_pegawai',
             'tugas' => 'required|string',
             'kendaraan' => 'nullable|array',
             'lokasi_berangkat' => 'required|string',
@@ -63,8 +69,10 @@ class SuratController extends Controller
         ]);
 
         Surat::create([
-            'nomor_surat' => $validated['nomor_surat'],
-            'id_pejabat' => $validated['id_pejabat'],
+            'id_nota_dinas' => $validated['id_nota_dinas'],
+            'id_pejabat' => $validated['id_pejabat_st'],
+            'id_pejabat_st' => $validated['id_pejabat_st'] ?? null,
+            'id_pejabat_spd' => $validated['id_pejabat_spd'] ?? null,
             'tugas' => $validated['tugas'],
             'kendaraan' => $validated['kendaraan'] ?? [],
             'lokasi_berangkat' => $validated['lokasi_berangkat'],
@@ -95,6 +103,13 @@ class SuratController extends Controller
     public function edit(string $id)
     {
         $surat = Surat::findOrFail($id);
+
+        $dipakai = Surat::pluck('id_nota_dinas');
+        // $nomorSurats = NotaDinas::whereNotIn('id', $dipakai)->get();
+        $nomorSurats = NotaDinas::whereNotIn('id', $dipakai)
+            ->orWhere('id', $surat->id_nota_dinas)
+            ->get();
+
         $pejabats = Pegawai::whereJsonContains('wewenang', 'Pimpinan ST')
             ->orWhereJsonContains('wewenang', 'Pimpinan SPD')
             ->get();
@@ -104,6 +119,7 @@ class SuratController extends Controller
             'title' => 'St',
             'subtitle' => 'Edit Surat Tugas',
             'surat' => $surat,
+            'nomorSurats' => $nomorSurats,
             'pejabats' => $pejabats,
             'pegawais' => $pegawais,
         ]);
@@ -115,8 +131,9 @@ class SuratController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'nomor_surat' => 'required|string|max:255',
-            'id_pejabat' => 'required|exists:pegawais,id_pegawai',
+            'id_nota_dinas' => 'required|exists:nota_dinas,id',
+            'id_pejabat_st' => 'nullable|exists:pegawais,id_pegawai',
+            'id_pejabat_spd' => 'nullable|exists:pegawais,id_pegawai',
             'tugas' => 'required|string',
             'kendaraan' => 'nullable|array',
             'lokasi_berangkat' => 'required|string',
@@ -133,8 +150,9 @@ class SuratController extends Controller
 
         $surat = Surat::findOrFail($id);
         $surat->update([
-            'nomor_surat' => $validated['nomor_surat'],
-            'id_pejabat' => $validated['id_pejabat'],
+            'id_nota_dinas' => $validated['id_nota_dinas'],
+            'id_pejabat_st' => $validated['id_pejabat_st'] ?? null,
+            'id_pejabat_spd' => $validated['id_pejabat_spd'] ?? null,
             'tugas' => $validated['tugas'],
             'kendaraan' => $validated['kendaraan'] ?? [],
             'lokasi_berangkat' => $validated['lokasi_berangkat'],

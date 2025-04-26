@@ -77,7 +77,7 @@
                 <tbody>
                     @foreach ($surats as $surat)
                         <tr>
-                            <td>{{ $surat->nomor_surat }}</td>
+                            <td>{{ $surat->notaDinas->nomor_surat }}</td>
                             <td>{{ $surat->created_at->format('d/m/y') }}</td>
                             <td>{{ $surat->tugas }}</td>
                             <td>{{ $surat->pejabat->nama_pegawai ?? '-' }}</td>

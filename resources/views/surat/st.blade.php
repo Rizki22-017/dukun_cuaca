@@ -1,194 +1,192 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <title>Surat Tugas</title>
 </head>
-<body style="font-family: 'Times New Roman', Times, serif; font-size: 12pt; margin: 50px; line-height: 1.5;">
+
+<body>
 
     <div style="text-align: center;">
-        <span style="text-decoration: underline; font-weight: bold; font-size: 14pt;">SURAT TUGAS</span><br>
-        <div style="margin-top: 8px;">
-            NOMOR: {{ $surat->notaDinas->nomor_surat }}
+        <img src="{{ public_path('assets/img/kopsurat.jpg') }}" alt="Kop Surat" style="width: 100%; max-width: 900px;">
+    </div>
+
+    <div style="font-family: 'Times New Roman', Times, serif; font-size: 12pt; margin-left: 50px; margin-right: 50px; line-height: 1;">
+
+        <div style="text-align: center; margin-top:10px">
+            <span style="text-decoration: underline; font-weight: bold; font-size: 14pt;">SURAT TUGAS</span><br>
+            <div style="margin-top: 8px;">
+                NOMOR: {{ $surat->notaDinas->nomor_surat }}
+            </div>
         </div>
-    </div>
 
-    <div style="margin-top: 24px;">
-        Yang bertanda tangan di bawah ini:
-        <table style="width: 100%; margin-top: 8px; border-collapse: collapse;">
-            <tr>
-                <td style="width: 30%; vertical-align: top; padding-bottom: 4px;">Nama</td>
-                <td style="width: 2%; vertical-align: top;">:</td>
-                <td style="width: 68%; text-align: justify;">Hartanto, S.T., M.M.</td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top; padding-bottom: 4px;">NIP</td>
-                <td style="vertical-align: top;">:</td>
-                <td style="text-align: justify;">197304181995031001</td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top; padding-bottom: 4px;">Pangkat/Golongan</td>
-                <td style="vertical-align: top;">:</td>
-                <td style="text-align: justify;">Pembina Utama Muda / IV-c</td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top; padding-bottom: 4px;">Jabatan</td>
-                <td style="vertical-align: top;">:</td>
-                <td style="text-align: justify;">Kepala Balai Besar</td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top;">Unit Organisasi</td>
-                <td style="vertical-align: top;">:</td>
-                <td style="text-align: justify;">Balai Besar Meteorologi, Klimatologi, dan Geofisika Wilayah II</td>
-            </tr>
-        </table>
-    </div>
+        <div style="margin-top: 24px;">
+            Yang bertanda tangan di bawah ini:
+            <table style="width: 100%; margin-top: 8px; border-collapse: collapse;">
+                <tr>
+                    <td style="width: 30%;">Nama</td>
+                    <td style="width: 2%;">:</td>
+                    <td>{{ $surat->pejabat->nama_pegawai }}</td>
+                </tr>
+                <tr>
+                    <td>NIP</td>
+                    <td>:</td>
+                    <td>{{ $surat->pejabat->nip }}</td>
+                </tr>
+                <tr>
+                    <td>Pangkat/Golongan</td>
+                    <td>:</td>
+                    <td>{{ $surat->pejabat->pangkat_golongan }}</td>
+                </tr>
+                <tr>
+                    <td>Jabatan</td>
+                    <td>:</td>
+                    <td>{{ $surat->pejabat->jabatan }}</td>
+                </tr>
+                <tr>
+                    <td>Unit Organisasi</td>
+                    <td>:</td>
+                    <td>{{ $surat->pejabat->bagian_kerja }}</td>
+                </tr>
+            </table>
+        </div>
 
-    <div style="margin-top: 24px;">
-        Dengan ini memberikan tugas kepada:
-        <table style="width: 100%; margin-top: 8px; border-collapse: collapse;">
-            <tr>
-                <td style="width: 5%; vertical-align: top;">1.</td>
-                <td style="width: 95%;">
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tr>
-                            <td style="width: 25%; vertical-align: top; padding-bottom: 4px;">Nama</td>
-                            <td style="width: 2%; vertical-align: top;">:</td>
-                            <td style="width: 68%; text-align: justify;">Lina Adrianti, S.Si.</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top; padding-bottom: 4px;">NIP</td>
-                            <td style="vertical-align: top;">:</td>
-                            <td style="text-align: justify;">198903012010122001</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top; padding-bottom: 4px;">Pangkat/Gol.</td>
-                            <td style="vertical-align: top;">:</td>
-                            <td style="text-align: justify;">Penata Tk. I / III-d</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top; padding-bottom: 4px;">Jabatan</td>
-                            <td style="vertical-align: top;">:</td>
-                            <td style="text-align: justify;">PMG Muda</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top;">Unit Organisasi</td>
-                            <td style="vertical-align: top;">:</td>
-                            <td style="text-align: justify;">Balai Besar Meteorologi, Klimatologi, dan Geofisika Wilayah II</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top;">2.</td>
-                <td>
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tr>
-                            <td style="width: 25%; vertical-align: top; padding-bottom: 4px;">Nama</td>
-                            <td style="width: 2%; vertical-align: top;">:</td>
-                            <td style="width: 68%; text-align: justify;">Isnisa Citra Fiary, S.Tr.</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top; padding-bottom: 4px;">NIP</td>
-                            <td style="vertical-align: top;">:</td>
-                            <td style="text-align: justify;">199111032010122001</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top; padding-bottom: 4px;">Pangkat/Gol.</td>
-                            <td style="vertical-align: top;">:</td>
-                            <td style="text-align: justify;">Penata / III-c</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top; padding-bottom: 4px;">Jabatan</td>
-                            <td style="vertical-align: top;">:</td>
-                            <td style="text-align: justify;">PMG Muda</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top;">Unit Organisasi</td>
-                            <td style="vertical-align: top;">:</td>
-                            <td style="text-align: justify;">Balai Besar Meteorologi, Klimatologi, dan Geofisika Wilayah II</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top;">3.</td>
-                <td>
-                    <table style="width: 100%; border-collapse: collapse;">
-                        <tr>
-                            <td style="width: 25%; vertical-align: top; padding-bottom: 4px;">Nama</td>
-                            <td style="width: 2%; vertical-align: top;">:</td>
-                            <td style="width: 68%; text-align: justify;">Abun Rohibun Anwar</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top; padding-bottom: 4px;">NIP</td>
-                            <td style="vertical-align: top;">:</td>
-                            <td style="text-align: justify;">197908302000031001</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top; padding-bottom: 4px;">Pangkat/Gol.</td>
-                            <td style="vertical-align: top;">:</td>
-                            <td style="text-align: justify;">Penata / III-c</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top; padding-bottom: 4px;">Jabatan</td>
-                            <td style="vertical-align: top;">:</td>
-                            <td style="text-align: justify;">PMG Penyelia</td>
-                        </tr>
-                        <tr>
-                            <td style="vertical-align: top;">Unit Organisasi</td>
-                            <td style="vertical-align: top;">:</td>
-                            <td style="text-align: justify;">Balai Besar Meteorologi, Klimatologi, dan Geofisika Wilayah II</td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-    </div>
+        <div style="margin-top: 24px;">
+            Dengan ini memberikan tugas kepada:
+            <table style="width: 100%; margin-top: 8px; border-collapse: collapse;">
+                @php
+                    $no = 1;
+                @endphp
+                <tr>
+                    <td style="width: 5%; vertical-align: top;">{{ $no++ }}.</td>
+                    <td style="width: 95%;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <tr>
+                                <td style="width: 25%;">Nama</td>
+                                <td style="width: 2%;">:</td>
+                                <td>{{ $surat->pegawaiBertugas->nama_pegawai }}</td>
+                            </tr>
+                            <tr>
+                                <td>NIP</td>
+                                <td>:</td>
+                                <td>{{ $surat->pegawaiBertugas->nip }}</td>
+                            </tr>
+                            <tr>
+                                <td>Pangkat/Gol.</td>
+                                <td>:</td>
+                                <td>{{ $surat->pegawaiBertugas->pangkat_golongan }}</td>
+                            </tr>
+                            <tr>
+                                <td>Jabatan</td>
+                                <td>:</td>
+                                <td>{{ $surat->pegawaiBertugas->jabatan }}</td>
+                            </tr>
+                            <tr>
+                                <td>Unit Organisasi</td>
+                                <td>:</td>
+                                <td>{{ $surat->pegawaiBertugas->bagian_kerja }}</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
 
-    <div style="margin-top: 24px;">
-        Untuk melaksanakan:
-        <table style="width: 100%; margin-top: 8px; border-collapse: collapse;">
-            <tr>
-                <td style="width: 30%; vertical-align: top; padding-bottom: 4px;">Tugas</td>
-                <td style="width: 2%; vertical-align: top;">:</td>
-                <td style="width: 68%; text-align: justify;">Kegiatan Simulasi Evakuasi Mandiri Pasar Cisoka</td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top;">Selama</td>
-                <td style="vertical-align: top;">:</td>
-                <td style="text-align: justify;">19 September 2024 - 20 September 2024</td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top;">Lokasi</td>
-                <td style="vertical-align: top;">:</td>
-                <td style="text-align: justify;">Pasar Cisoka, Jl. Raya Cisoka, Kec. Cisoka, Kabupaten Tangerang, Banten</td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top;">Tanggal</td>
-                <td style="vertical-align: top;">:</td>
-                <td style="text-align: justify;">19 September 2024 s.d. 20 September 2024</td>
-            </tr>
-            <tr>
-                <td style="vertical-align: top;">Sumber Dana</td>
-                <td style="vertical-align: top;">:</td>
-                <td style="text-align: justify;">DIPA Tahun Anggaran 2024 Balai Besar Meteorologi, Klimatologi, dan Geofisika Wilayah II, Nomor: SP DIPA-075.01.2.437783/2024, tanggal 24 November 2023.</td>
-            </tr>
-        </table>
-    </div>
+                {{-- ini untuk pengikut, nnti di cek apa ada pengikut atau kaga --}}
+                @if (!empty($surat->pengikut))
+                    @foreach ($surat->pengikut as $pengikutId)
+                        @php
+                            $pengikut = \App\Models\Pegawai::find($pengikutId);
+                        @endphp
+                        @if ($pengikut)
+                            <tr>
+                                <td style="vertical-align: top;">{{ $no++ }}.</td>
+                                <td>
+                                    <table style="width: 100%; border-collapse: collapse;">
+                                        <tr>
+                                            <td style="width: 25%;">Nama</td>
+                                            <td style="width: 2%;">:</td>
+                                            <td>{{ $pengikut->nama_pegawai }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>NIP</td>
+                                            <td>:</td>
+                                            <td>{{ $pengikut->nip }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pangkat/Gol.</td>
+                                            <td>:</td>
+                                            <td>{{ $pengikut->pangkat_golongan }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jabatan</td>
+                                            <td>:</td>
+                                            <td>{{ $pengikut->jabatan }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Unit Organisasi</td>
+                                            <td>:</td>
+                                            <td>{{ $pengikut->bagian_kerja }}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        @endif
+                    @endforeach
+                @endif
 
-    <div style="margin-top: 48px; text-align: right;">
-        Tangerang Selatan, 19 September 2024<br>
-        Kepala,<br><br><br><br>
-        <span style="font-weight: bold; text-decoration: underline;">Hartanto, S.T., M.M.</span>
-    </div>
+            </table>
+        </div>
 
-    <div style="margin-top: 48px;">
-        <hr>
-        <small><i>
-            Dokumen ini telah ditandatangani secara elektronik menggunakan sertifikat elektronik yang diterbitkan oleh Balai Sertifikasi Elektronik (BSrE), Badan Siber dan Sandi Negara.
-        </i></small>
+        <div style="margin-top: 24px;">
+            Untuk melaksanakan:
+            <table style="width: 100%; margin-top: 8px; border-collapse: collapse;">
+                <tr>
+                    <td style="width: 30%;">Tugas</td>
+                    <td style="width: 2%;">:</td>
+                    <td>{{ $surat->tugas }}</td>
+                </tr>
+                {{-- bagian ini tuh rumusnya +1 biar hitungan hari, bukan malam --}}
+                <tr>
+                    <td>Selama</td>
+                    <td>:</td>
+                    <td>{{ \Carbon\Carbon::parse($surat->tgl_mulai)->diffInDays(\Carbon\Carbon::parse($surat->tgl_selesai)) + 1 }} hari</td>
+                </tr>
+                <tr>
+                    <td>Lokasi</td>
+                    <td>:</td>
+                    <td>{{ $surat->lokasi_tujuan }}</td>
+                </tr>
+                <tr>
+                    <td>Tanggal</td>
+                    <td>:</td>
+                    <td>{{ \Carbon\Carbon::parse($surat->tgl_mulai)->translatedFormat('d F Y') }} s.d.
+                        {{ \Carbon\Carbon::parse($surat->tgl_selesai)->translatedFormat('d F Y') }}</td>
+                </tr>
+                <tr>
+                    <td>Sumber Dana</td>
+                    <td>:</td>
+                    <td>{{ $surat->sumber_dana }}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div style="margin-top: 48px; text-align: right;">
+            {{ $surat->lokasi_berangkat ?? 'Lokasi Berangkat' }},
+            {{ \Carbon\Carbon::parse($surat->tgl_mulai)->translatedFormat('d F Y') }}<br>
+            Kepala,<br><br><br><br>
+            <span style="font-weight: bold; text-decoration: underline;">{{ $surat->pejabat->nama_pegawai }}</span>
+        </div>
+
+        <div style="margin-top: 48px;">
+            <hr>
+            <small><i>
+                    Dokumen ini telah ditandatangani secara sah yang diterbitkan
+                    oleh BMKG Wilayah.
+                </i></small>
+        </div>
+
     </div>
 
 </body>
+
 </html>

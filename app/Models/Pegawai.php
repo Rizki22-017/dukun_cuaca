@@ -36,8 +36,4 @@ class Pegawai extends Model
         return $this->hasMany(Surat::class, 'id_pegawai_bertugas', 'id_pegawai');
     }
 
-    public function suratPengikut()
-    {
-        return $this->hasMany(Surat::class, 'id_pegawai', 'pengikut');
-    }
 }

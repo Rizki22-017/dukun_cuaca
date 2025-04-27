@@ -39,11 +39,6 @@ class Surat extends Model
         return $this->belongsTo(Pegawai::class, 'id_pegawai_bertugas', 'id_pegawai');
     }
 
-    public function pengikutPegawai()
-    {
-        return $this->belongsToMany(Pegawai::class, 'pegawais', 'id_pegawai', 'pengikut');
-    }
-
     public function notaDinas()
     {
         return $this->belongsTo(NotaDinas::class, 'id_nota_dinas');

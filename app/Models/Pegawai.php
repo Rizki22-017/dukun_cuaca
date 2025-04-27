@@ -28,9 +28,14 @@ class Pegawai extends Model
         'wewenang' => 'array',
     ];
 
-    public function pejabat(){
-        return $this->hasMany(Surat::class, 'id_pejabat', 'id_pegawai');
+    public function pejabatSt(){
+        return $this->hasMany(Pegawai::class, 'id_pejabat_st', 'id_pegawai');
     }
+
+    public function pejabatSpd(){
+        return $this->hasMany(Pegawai::class, 'id_pejabat_spd', 'id_pegawai');
+    }
+
 
     public function pegawaiBertugas(){
         return $this->hasMany(Surat::class, 'id_pegawai_bertugas', 'id_pegawai');

@@ -52,8 +52,8 @@ class SuratController extends Controller
     {
         $validated = $request->validate([
             'id_nota_dinas' => 'required|exists:nota_dinas,id',
-            'id_pejabat_st' => 'nullable|exists:pegawais,id_pegawai',
-            'id_pejabat_spd' => 'nullable|exists:pegawais,id_pegawai',
+            'id_pejabat_st' => 'required|exists:pegawais,id_pegawai',
+            'id_pejabat_spd' => 'required|exists:pegawais,id_pegawai',
             'tugas' => 'required|string',
             'kendaraan' => 'nullable|array',
             'lokasi_berangkat' => 'required|string',
@@ -70,9 +70,8 @@ class SuratController extends Controller
 
         Surat::create([
             'id_nota_dinas' => $validated['id_nota_dinas'],
-            'id_pejabat' => $validated['id_pejabat_st'],
-            'id_pejabat_st' => $validated['id_pejabat_st'] ?? null,
-            'id_pejabat_spd' => $validated['id_pejabat_spd'] ?? null,
+            'id_pejabat_st' => $validated['id_pejabat_st'],
+            'id_pejabat_spd' => $validated['id_pejabat_spd'],
             'tugas' => $validated['tugas'],
             'kendaraan' => $validated['kendaraan'] ?? [],
             'lokasi_berangkat' => $validated['lokasi_berangkat'],
@@ -110,9 +109,8 @@ class SuratController extends Controller
             ->orWhere('id', $surat->id_nota_dinas)
             ->get();
 
-        $pejabats = Pegawai::whereJsonContains('wewenang', 'Pimpinan ST')
-            ->orWhereJsonContains('wewenang', 'Pimpinan SPD')
-            ->get();
+        $pimpinanST = Pegawai::whereJsonContains('wewenang', 'Pimpinan ST')->get();
+        $pimpinanSPD = Pegawai::whereJsonContains('wewenang', 'Pimpinan SPD')->get();
         $pegawais = Pegawai::all();
 
         return view('surat.edit', [
@@ -120,8 +118,13 @@ class SuratController extends Controller
             'subtitle' => 'Edit Surat Tugas',
             'surat' => $surat,
             'nomorSurats' => $nomorSurats,
-            'pejabats' => $pejabats,
+            'pimpinanST' => $pimpinanST,
+            'pimpinanSPD' => $pimpinanSPD,
             'pegawais' => $pegawais,
+            'existingData' => [
+            'id_pejabat_st' => $surat->id_pejabat_st,
+            'id_pejabat_spd' => $surat->id_pejabat_spd,
+        ]
         ]);
     }
 
@@ -132,8 +135,8 @@ class SuratController extends Controller
     {
         $validated = $request->validate([
             'id_nota_dinas' => 'required|exists:nota_dinas,id',
-            'id_pejabat_st' => 'nullable|exists:pegawais,id_pegawai',
-            'id_pejabat_spd' => 'nullable|exists:pegawais,id_pegawai',
+            'id_pejabat_st' => 'required|exists:pegawais,id_pegawai',
+            'id_pejabat_spd' => 'required|exists:pegawais,id_pegawai',
             'tugas' => 'required|string',
             'kendaraan' => 'nullable|array',
             'lokasi_berangkat' => 'required|string',
@@ -151,8 +154,8 @@ class SuratController extends Controller
         $surat = Surat::findOrFail($id);
         $surat->update([
             'id_nota_dinas' => $validated['id_nota_dinas'],
-            'id_pejabat_st' => $validated['id_pejabat_st'] ?? null,
-            'id_pejabat_spd' => $validated['id_pejabat_spd'] ?? null,
+            'id_pejabat_st' => $validated['id_pejabat_st'],
+            'id_pejabat_spd' => $validated['id_pejabat_spd'],
             'tugas' => $validated['tugas'],
             'kendaraan' => $validated['kendaraan'] ?? [],
             'lokasi_berangkat' => $validated['lokasi_berangkat'],

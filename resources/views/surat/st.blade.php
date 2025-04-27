@@ -27,27 +27,27 @@
                 <tr>
                     <td style="width: 30%;">Nama</td>
                     <td style="width: 2%;">:</td>
-                    <td>{{ $surat->pejabat->nama_pegawai }}</td>
+                    <td>{{ $surat->pejabatSt->nama_pegawai }}</td>
                 </tr>
                 <tr>
                     <td>NIP</td>
                     <td>:</td>
-                    <td>{{ $surat->pejabat->nip }}</td>
+                    <td>{{ $surat->pejabatSt->nip }}</td>
                 </tr>
                 <tr>
                     <td>Pangkat/Golongan</td>
                     <td>:</td>
-                    <td>{{ $surat->pejabat->pangkat_golongan }}</td>
+                    <td>{{ $surat->pejabatSt->pangkat_golongan }}</td>
                 </tr>
                 <tr>
                     <td>Jabatan</td>
                     <td>:</td>
-                    <td>{{ $surat->pejabat->jabatan }}</td>
+                    <td>{{ $surat->pejabatSt->jabatan }}</td>
                 </tr>
                 <tr>
                     <td>Unit Organisasi</td>
                     <td>:</td>
-                    <td>{{ $surat->pejabat->bagian_kerja }}</td>
+                    <td>{{ $surat->pejabatSt->bagian_kerja }}</td>
                 </tr>
             </table>
         </div>
@@ -174,7 +174,7 @@
             {{ $surat->lokasi_berangkat ?? 'Lokasi Berangkat' }},
             {{ \Carbon\Carbon::parse($surat->tgl_mulai)->translatedFormat('d F Y') }}<br>
             Kepala,<br><br><br><br>
-            <span style="font-weight: bold; text-decoration: underline;">{{ $surat->pejabat->nama_pegawai }}</span>
+            <span style="font-weight: bold; text-decoration: underline;">{{ $surat->pejabatSt->nama_pegawai }}</span>
         </div>
 
         <div style="margin-top: 48px;">

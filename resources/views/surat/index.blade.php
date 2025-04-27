@@ -80,7 +80,7 @@
                             <td>{{ $surat->notaDinas->nomor_surat }}</td>
                             <td>{{ $surat->created_at->format('d/m/y') }}</td>
                             <td>{{ $surat->tugas }}</td>
-                            <td>{{ $surat->pejabat->nama_pegawai ?? '-' }}</td>
+                            <td>{{ $surat->pejabatSt->nama_pegawai ?? '-' }}</td>
                             <td>{{ $surat->pegawaiBertugas->nama_pegawai ?? '-' }}</td>
                             <td>{{ $surat->lokasi_tujuan }}</td>
                             {{-- <td>{{ implode(', ', $surat->kendaraan ?? []) }}</td> --}}

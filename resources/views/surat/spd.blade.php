@@ -83,7 +83,7 @@
             <tr>
                 <th class="tg-0pky">1</th>
                 <th class="tg-0pky">Pejabat Pembuat Komitmen</th>
-                <th class="tg-0pky" colspan="2">{{ $surat->pejabat->nama_pegawai }}</th>
+                <th class="tg-0pky" colspan="2">{{ $surat->pejabatSt->nama_pegawai }}</th>
             </tr>
         </thead>
         <tbody>
@@ -116,7 +116,6 @@
                 <td class="tg-0pky">5</td>
                 <td class="tg-0pky">Alat Angkutan yang Dipergunakan</td>
                 <td class="tg-0pky" colspan="2">{{ implode(', ', $surat->kendaraan) }}</td>
-                </td>
             </tr>
             <tr>
                 <td class="tg-0pky" rowspan="2">6</td>
@@ -201,8 +200,8 @@
                 <br><br>
                 Pejabat Pembuat Komitmen,
                 <div style="height: 80px;"></div>
-                <strong>{{ $surat->pejabat->nama_pegawai }}</strong><br>
-                NIP. {{ $surat->pejabat->nip }}
+                <strong>{{ $surat->pejabatSpd->nama_pegawai }}</strong><br>
+                NIP. {{ $surat->pejabatSpd->nip }}
             </td>
         </tr>
     </table>
@@ -251,15 +250,15 @@
             <td style="border: 1px solid black; text-align: center;">
                 Pejabat Yang Berwenang / Pejabat lainnya yang ditunjuk,
                 <div style="height: 80px;"></div>
-                <strong>Hartanto, S.T., M.M.</strong><br>
-                NIP. 197304181995031001
+                <strong>{{ $surat->pejabatSt->nama_pegawai }}</strong><br>
+                NIP. {{ $surat->pejabatSt->nip }}
             </td>
             <td style="border: 1px solid black; text-align: center;">
                 Telah diperiksa, dengan keterangan bahwa perjalanan tersebut atas perintahnya dan semata-mata untuk
                 kepentingan jabatan
                 <div style="height: 80px;"></div>
-                <strong>{{ $surat->id_pejabat }}</strong><br>
-                NIP. 198508252008121002
+                <strong>{{ $surat->pejabatSpd->nama_pegawai }}</strong><br>
+                NIP. {{ $surat->pejabatSpd->nip }}
             </td>
         </tr>
 

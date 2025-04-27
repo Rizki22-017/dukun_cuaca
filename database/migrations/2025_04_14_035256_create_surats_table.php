@@ -17,7 +17,11 @@ return new class extends Migration
                 ->constrained('nota_dinas')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('id_pejabat')
+            $table->foreignId('id_pejabat_st')
+                ->constrained('pegawais', 'id_pegawai')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->foreignId('id_pejabat_spd')
                 ->constrained('pegawais', 'id_pegawai')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');

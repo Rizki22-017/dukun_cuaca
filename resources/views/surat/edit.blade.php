@@ -48,8 +48,7 @@
                     <select name="id_nota_dinas" class="form-select" required>
                         <option selected disabled>Pilih Nomor Surat</option>
                         @foreach ($nomorSurats as $nota)
-                            <option value="{{ $nota->id }}"
-                                {{ $surat->id_nota_dinas == $nota->id ? 'selected' : '' }}>
+                            <option value="{{ $nota->id }}" {{ $surat->id_nota_dinas == $nota->id ? 'selected' : '' }}>
                                 {{ $nota->nomor_surat }}
                             </option>
                         @endforeach
@@ -59,15 +58,31 @@
 
                 <div class="mb-3">
                     <label class="form-label">Pejabat yang memberi perintah</label>
-                    <select name="id_pejabat" class="form-select" required>
-                        <option selected disabled>Pilih Pejabat</option>
-                        @foreach ($pejabats as $pegawai)
+                    <select name="id_pejabat_st" class="form-select" required>
+                        <option selected disabled>Pilih Pejabat ST</option>
+                        @foreach ($pimpinanST as $pegawai)
                             <option value="{{ $pegawai->id_pegawai }}"
-                                {{ $surat->id_pejabat == $pegawai->id_pegawai ? 'selected' : '' }}>
-                                {{ $pegawai->nama_pegawai }}</option>
+                                {{ $pegawai->id_pegawai == old('id_pejabat_st', $existingData['id_pejabat_st']) ? 'selected' : '' }}>
+                                {{ $pegawai->nama_pegawai }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Pejabat Surat Perjalanan Dinas</label>
+                    <select name="id_pejabat_spd" class="form-select" required>
+                        <option selected disabled>Pilih Pejabat SPD</option>
+                        @foreach ($pimpinanSPD as $pegawai)
+                            <option value="{{ $pegawai->id_pegawai }}"
+                                {{ $pegawai->id_pegawai == old('id_pejabat_spd', $existingData['id_pejabat_spd']) ? 'selected' : '' }}>
+                                {{ $pegawai->nama_pegawai }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+
 
                 <div class="mb-3">
                     <label class="form-label">Maksud Perjalanan Dinas</label>
@@ -143,11 +158,13 @@
                                             {{ $pegawai->nama_pegawai }}</option>
                                     @endforeach
                                 </select>
-                                <button class="btn btn-outline-danger" type="button" onclick="hapusDropdownPengikut(this)">&times;</button>
+                                <button class="btn btn-outline-danger" type="button"
+                                    onclick="hapusDropdownPengikut(this)">&times;</button>
                             </div>
                         @endforeach
                     </div>
-                    <button class="btn btn-outline-success mt-2" type="button" onclick="tambahDropdownPengikut()">Tambah Pengikut</button>
+                    <button class="btn btn-outline-success mt-2" type="button" onclick="tambahDropdownPengikut()">Tambah
+                        Pengikut</button>
                 </div>
 
 
@@ -221,7 +238,5 @@
                 container.removeChild(button.parentElement);
             }
         }
-
-
     </script>
 @endsection

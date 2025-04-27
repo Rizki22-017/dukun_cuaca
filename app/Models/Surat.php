@@ -12,7 +12,8 @@ class Surat extends Model
 
     protected $fillable = [
         'id_nota_dinas',
-        'id_pejabat',
+        'id_pejabat_st',
+        'id_pejabat_spd',
         'tugas',
         'kendaraan',
         'lokasi_berangkat',
@@ -31,9 +32,14 @@ class Surat extends Model
         'pengikut' => 'array',
     ];
 
-    public function pejabat(){
-        return $this->belongsTo(Pegawai::class, 'id_pejabat', 'id_pegawai');
+    public function pejabatSt(){
+        return $this->belongsTo(Pegawai::class, 'id_pejabat_st', 'id_pegawai');
     }
+
+    public function pejabatSpd(){
+        return $this->belongsTo(Pegawai::class, 'id_pejabat_spd', 'id_pegawai');
+    }
+
 
     public function pegawaiBertugas(){
         return $this->belongsTo(Pegawai::class, 'id_pegawai_bertugas', 'id_pegawai');

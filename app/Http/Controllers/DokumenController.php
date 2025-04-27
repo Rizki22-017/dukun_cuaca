@@ -21,16 +21,18 @@ class DokumenController extends Controller
 
     public function downloadSt($id)
     {
-        $surat = Surat::with(['notaDinas', 'pejabat', 'pegawaiBertugas'])->findOrFail($id);
+        $surat = Surat::with(['notaDinas', 'pejabatSt', 'pejabatSpd', 'pegawaiBertugas'])->findOrFail($id);
 
         $pdf = PDF::loadView('surat.st', compact('surat'));
 
-        return $pdf->download('surat-tugas-' . $surat->notaDinas->nomor_surat . '.pdf');
+        return $pdf->stream('surat-tugas-' . $surat->notaDinas->nomor_surat . '.pdf');
+
+        // stream ubah ke download kalo udah kelar
     }
 
     public function downloadSpd($id)
     {
-        $surat = Surat::with(['notaDinas', 'pejabat', 'pegawaiBertugas'])->findOrFail($id);
+        $surat = Surat::with(['notaDinas', 'pejabatSt', 'pejabatSpd', 'pegawaiBertugas'])->findOrFail($id);
 
         $pdf = PDF::loadView('surat.spd', compact('surat'));
 

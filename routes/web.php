@@ -15,6 +15,7 @@ Route::resource('/', HomeController::class);
 //dokumen download
 Route::resource('/suratt', DokumenController::class);
 Route::get('/St/download/{id}', [DokumenController::class, 'downloadSt'])->name('st.download');
+Route::get('/St-d/download/{id}', [DokumenController::class, 'downloadSpd'])->name('spd.download');
 
 Route::resource('Admin', AdminController::class);
 

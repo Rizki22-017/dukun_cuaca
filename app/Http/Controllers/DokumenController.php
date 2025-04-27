@@ -28,6 +28,15 @@ class DokumenController extends Controller
         return $pdf->download('surat-tugas-' . $surat->notaDinas->nomor_surat . '.pdf');
     }
 
+    public function downloadSpd($id)
+    {
+        $surat = Surat::with(['notaDinas', 'pejabat', 'pegawaiBertugas'])->findOrFail($id);
+
+        $pdf = PDF::loadView('surat.spd', compact('surat'));
+
+        return $pdf->stream('surat-pd-' . $surat->notaDinas->nomor_surat . '.pdf');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

@@ -90,7 +90,10 @@
                                 <a href="{{ route('st.download', $surat->id) }}" class="btn btn-outline-primary btn-sm" target="_blank">
                                     ST
                                 </a>
-                                <button class="btn btn-outline-primary btn-sm">SPD</button>
+                                <a href="{{ route('spd.download', $surat->id) }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                    SPD
+                                </a>
+                                {{-- <button class="btn btn-outline-primary btn-sm">SPD</button> --}}
                             </td>
                             <td>
                                 <a href="{{ route('St.edit', $surat->id) }}"

@@ -14,21 +14,20 @@ use App\Http\Controllers\SuratController;
 Route::resource('/', HomeController::class);
 
 //dokumen download
-Route::resource('/suratt', DokumenController::class);
-Route::get('/St/download/{id}', [DokumenController::class, 'downloadSt'])->name('st.download');
-Route::get('/St-d/download/{id}', [DokumenController::class, 'downloadSpd'])->name('spd.download');
+Route::get('/St/download/{id}', [DokumenController::class, 'downloadSt'])->name('st.download')->middleware('auth');
+Route::get('/St-d/download/{id}', [DokumenController::class, 'downloadSpd'])->name('spd.download')->middleware('auth');
 
-Route::resource('Admin', AdminController::class);
+Route::resource('Admin', AdminController::class)->middleware('auth');
 
-Route::resource('Pegawai', PegawaiController::class);
+Route::resource('Pegawai', PegawaiController::class)->middleware('auth');
 
-Route::resource('Pimpinan', PimpinanController::class);
+Route::resource('Pimpinan', PimpinanController::class)->middleware('auth');
 
-Route::resource('St', SuratController::class);
+Route::resource('St', SuratController::class)->middleware('auth');
 
-Route::resource('NotaDinas', NotaDinasController::class);
+Route::resource('NotaDinas', NotaDinasController::class)->middleware('auth');
 
-Route::resource('LaporanPerjalananDinas', LaporanPerjalananDinasController::class);
+Route::resource('LaporanPerjalananDinas', LaporanPerjalananDinasController::class)->middleware('auth');
 
 
 //login

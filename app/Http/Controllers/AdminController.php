@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LaporanPerjalananDinas;
+use App\Models\NotaDinas;
 use App\Models\Pegawai;
+use App\Models\Surat;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -24,11 +27,18 @@ class AdminController extends Controller
 
         $jumlahTotal = $jumlahPimpinan + $jumlahPegawaiBiasa;
 
+        $jumlahNotaDinas = NotaDinas::count();
+        $jumlahSurat = Surat::count();
+        $jumlahLaporanPerjalananDinas = LaporanPerjalananDinas::count();
+
         return view('dataadmin.index', compact(
             'pegawais',
             'jumlahPimpinan',
             'jumlahPegawaiBiasa',
-            'jumlahTotal'
+            'jumlahTotal',
+            'jumlahNotaDinas',
+            'jumlahSurat',
+            'jumlahLaporanPerjalananDinas'
         ), ["title" => "Admin", "subtitle" => "Admin"]);
     }
 

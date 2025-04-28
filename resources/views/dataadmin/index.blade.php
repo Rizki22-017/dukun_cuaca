@@ -41,13 +41,13 @@
         </div>
         <div class="row">
             <div class="col-4">
-                Jumlah Surat Tugas Diterbitkan
+                Jumlah Nota Dinas <b>{{ $jumlahNotaDinas }}</b>
             </div>
             <div class="col-4">
-                Jumlah Jumlah Surat Perjalanan Dinas Diterbitkan
+                Jumlah Surat Diterbitkan <b>{{ $jumlahSurat }}</b>
             </div>
             <div class="col-4">
-                Total Surat Diterbitkan
+                Jumlah Laporan Perjalanan Dinas <b>{{ $jumlahLaporanPerjalananDinas }}</b>
             </div>
         </div>
         <hr>

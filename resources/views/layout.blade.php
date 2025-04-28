@@ -81,15 +81,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white {{ $title === 'St' ? 'active' : '' }}" href="/St">
-                            <span data-feather="book-open" class="align-text-bottom"></span>
-                            Surat Tugas{{-- Admin --}}
-                        </a>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link text-white {{ $title === 'Nota Dinas' ? 'active' : '' }}" href="/NotaDinas">
                             <span data-feather="layers" class="align-text-bottom"></span>
                             Nota Dinas {{-- Pimpinan --}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white {{ $title === 'St' ? 'active' : '' }}" href="/St">
+                            <span data-feather="book-open" class="align-text-bottom"></span>
+                            Surat Tugas{{-- Admin --}}
                         </a>
                     </li>
                     <li class="nav-item">

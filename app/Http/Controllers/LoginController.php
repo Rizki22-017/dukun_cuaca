@@ -2,63 +2,67 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pegawai;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Show the login form.
      */
-    public function index()
+    public function showLoginForm()
     {
-        return view('login.login');
+        return view('login.login', ["title" => "Login", "subtitle" => "Masuk ke Sistem"]);
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Handle login logic.
      */
-    public function create()
+    public function login(Request $request)
     {
-        //
+        // Validasi input
+        $request->validate([
+            'email' => 'required|email|max:50',  // Hanya menerima email
+            'password' => 'required|string|min:8|max:255',
+        ]);
+
+        // Ambil nilai email dan password
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        // Cek apakah email dan password cocok
+        $credentials = [
+            'email' => $email,
+            'password' => $password
+        ];
+
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+
+            // Jika user pertama kali, set sebagai admin
+            if ($user->id_pegawai == 1) {
+                $pegawai = Pegawai::find(1);
+                $pegawai->wewenang = ['Admin']; // Set admin privilege
+                $pegawai->save();
+            }
+
+            return redirect()->intended('/');  // Redirect ke halaman yang dituju sebelumnya
+        }
+
+        // Jika login gagal
+        return back()->withErrors([
+            'email' => 'Email atau Password salah.',
+        ]);
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Logout the user.
      */
-    public function store(Request $request)
+    public function logout()
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        Auth::logout();
+        return redirect()->route('login');  // Redirect ke halaman login setelah logout
     }
 }

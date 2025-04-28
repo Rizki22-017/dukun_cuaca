@@ -76,6 +76,23 @@
                     <input type="date" name="tanggal_lahir" class="form-control" required>
                 </div>
 
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" name="username" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password</label>
+                    <input type="text" class="form-control" name="password" value="12345678" required>
+                    <small class="text-muted">Password default 12345678, bisa diganti.</small>
+                </div>
+
+
                 {{-- <div class="mb-3">
                     <label class="form-label">Wewenang</label>
                     <div class="form-check">

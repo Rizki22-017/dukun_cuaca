@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
@@ -36,13 +37,29 @@ class PegawaiController extends Controller
             'jabatan' => 'required|string|max:15',
             'bagian_kerja' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
+            'username' => 'required|string|max:50|unique:users,username',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8|max:255',
             // 'wewenang' => 'required|array',
             // 'wewenang.*' => 'in:' . implode(',', array_map(fn($w) => $w->value, \App\WewenangEnum::cases())),
         ]);
 
-        $validateData['wewenang'] = ['Pegawai biasa'];
+        $pegawai = Pegawai::create([
+            'nama_pegawai' => $validateData['nama_pegawai'],
+            'nip' => $validateData['nip'],
+            'pangkat_golongan' => $validateData['pangkat_golongan'],
+            'jabatan' => $validateData['jabatan'],
+            'bagian_kerja' => $validateData['bagian_kerja'],
+            'tanggal_lahir' => $validateData['tanggal_lahir'],
+            'wewenang' => ['Pegawai biasa'],
+        ]);
 
-        Pegawai::create($validateData);
+        User::create([
+            'username' => $validateData['username'],
+            'email' => $validateData['email'],
+            'password' => bcrypt($validateData['password']),
+            'pegawai_id' => $pegawai->id_pegawai,
+        ]);
 
         return redirect()->route('Pegawai.index')->with('success', 'Data Pegawai Berhasil Ditambahkan');
     }

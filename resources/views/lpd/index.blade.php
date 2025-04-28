@@ -75,7 +75,7 @@
                                 onclick="confirmDelete({{ $lpd->id }})">Delete</button>
 
                             <form id="delete-form-{{ $lpd->id }}"
-                                action="{{ route('NotaDinas.destroy', $lpd->id) }}" method="POST"
+                                action="{{ route('LaporanPerjalananDinas.destroy', $lpd->id) }}" method="POST"
                                 style="display: none;">
                                 @csrf
                                 @method('DELETE')

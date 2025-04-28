@@ -100,16 +100,17 @@ class LaporanPerjalananDinasController extends Controller
      */
     public function destroy($id)
     {
-        $notaDinas = NotaDinas::findOrFail($id);
+        // Cari data Laporan Perjalanan Dinas berdasarkan ID
+        $laporan = LaporanPerjalananDinas::findOrFail($id);
 
-        // Menghapus file dari storage menggunakan Storage facade
-        if (Storage::disk('public')->exists('nodin/' . $notaDinas->filename)) {
-            Storage::disk('public')->delete('nodin/' . $notaDinas->filename);
+        // Hapus file dari storage/public/lpd/
+        if (Storage::disk('public')->exists('lpd/' . $laporan->filename)) {
+            Storage::disk('public')->delete('lpd/' . $laporan->filename);
         }
 
-        // Menghapus data dari database
-        $notaDinas->delete();
+        // Hapus data dari database
+        $laporan->delete();
 
-        return redirect()->back()->with('success', 'Nota Dinas berhasil dihapus.');
+        return redirect()->back()->with('success', 'Laporan Perjalanan Dinas berhasil dihapus.');
     }
 }

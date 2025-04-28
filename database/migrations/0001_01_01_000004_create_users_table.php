@@ -9,13 +9,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id('id_user');
-            $table->string('nama_lengkap', 50);
+            $table->id();
+            $table->foreignId('pegawai_id')->constrained('pegawais', 'id_pegawai')->onDelete('cascade');
             $table->string('username', 50)->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 255);
-            $table->enum('level', ['admin', 'pegawai', 'pimpinan']);
             $table->rememberToken();
             $table->timestamps();
         });

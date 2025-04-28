@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\NotaDinasController;
 use App\Http\Controllers\LaporanPerjalananDinasController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PimpinanController;
 use App\Http\Controllers\SuratController;
 
@@ -28,3 +29,7 @@ Route::resource('St', SuratController::class);
 Route::resource('NotaDinas', NotaDinasController::class);
 
 Route::resource('LaporanPerjalananDinas', LaporanPerjalananDinasController::class);
+
+
+//login
+Route::resource('login', LoginController::class);

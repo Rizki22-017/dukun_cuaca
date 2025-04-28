@@ -44,6 +44,23 @@
                         required>
                 </div>
 
+                <div class="mb-3">
+                    <label class="form-label">Username</label>
+                    <input type="text" name="username" class="form-control" value="{{ $pegawai->user->username ?? '' }}"
+                        placeholder="Username" maxlength="50" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" value="{{ $pegawai->user->email ?? '' }}"
+                        placeholder="Email" maxlength="255" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Password <small>(Kosongkan jika tidak ingin diubah)</small></label>
+                    <input type="password" name="password" class="form-control" placeholder="Password minimal 8 karakter">
+                </div>
+
                 {{-- <div class="mb-3">
                     <label class="form-label">Wewenang</label>
                     <div class="form-check">

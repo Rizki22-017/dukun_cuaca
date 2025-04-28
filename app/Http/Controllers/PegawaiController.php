@@ -94,6 +94,7 @@ class PegawaiController extends Controller
     public function update(Request $request, $id)
     {
         $pegawai = Pegawai::where('id_pegawai', $id)->firstOrFail();
+        $user = User::where('pegawai_id', $pegawai->id_pegawai)->firstOrFail();
 
         $validateData = $request->validate([
             'nama_pegawai' => 'required|string|max:50',
@@ -102,17 +103,34 @@ class PegawaiController extends Controller
             'jabatan' => 'required|string|max:15',
             'bagian_kerja' => 'required|string|max:50',
             'tanggal_lahir' => 'required|date',
-            'wewenang' => 'nullable|array',
-            'wewenang.*' => 'in:' . implode(',', array_map(fn($w) => $w->value, \App\WewenangEnum::cases())),
+            'username' => 'required|string|max:50|unique:users,username,' . $user->id,
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|max:255',
+            // 'wewenang' => 'nullable|array',
+            // 'wewenang.*' => 'in:' . implode(',', array_map(fn($w) => $w->value, \App\WewenangEnum::cases())),
         ]);
 
-        $wewenang = $validateData['wewenang'] ?? ['Pegawai biasa'];
 
-        // $pegawai->update($validateData);
         $pegawai->update([
-            ...$validateData,
-            'wewenang' => $wewenang,
+            'nama_pegawai' => $validateData['nama_pegawai'],
+            'nip' => $validateData['nip'],
+            'pangkat_golongan' => $validateData['pangkat_golongan'],
+            'jabatan' => $validateData['jabatan'],
+            'bagian_kerja' => $validateData['bagian_kerja'],
+            'tanggal_lahir' => $validateData['tanggal_lahir'],
+            'wewenang' => ['Pegawai biasa'],
         ]);
+
+        $userData = [
+            'username' => $validateData['username'],
+            'email' => $validateData['email'],
+        ];
+
+        if (!empty($validateData['password'])) {
+            $userData['password'] = bcrypt($validateData['password']);
+        }
+
+        $user->update($userData);
 
         return redirect()->route('Pegawai.index')->with('success', 'Data Pegawai Berhasil Diperbarui');
     }
@@ -126,10 +144,19 @@ class PegawaiController extends Controller
         $pegawai = Pegawai::where('id_pegawai', $id)->first();
 
         if ($pegawai) {
+            // Hapus User yang terhubung dengan Pegawai
+            $user = User::where('pegawai_id', $pegawai->id_pegawai)->first();
+            if ($user) {
+                $user->delete();
+            }
+
+            // Hapus data Pegawai
             $pegawai->delete();
+
             return redirect()->route('Pegawai.index')->with('success', 'Data Pegawai Berhasil Dihapus');
         } else {
             return redirect()->route('Pegawai.index')->with('error', 'Data Pegawai tidak ditemukan!');
         }
     }
+
 }

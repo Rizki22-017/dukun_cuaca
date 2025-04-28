@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\LaporanPerjalananDinas;
-use App\Models\SuratTugas;
+use App\Models\NotaDinas;
+use App\Models\Pegawai;
+use App\Models\Surat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LaporanPerjalananDinasController extends Controller
 {
@@ -13,9 +16,20 @@ class LaporanPerjalananDinasController extends Controller
      */
     public function index()
     {
-        // $laporanperjalanandinas = SuratTugas::all();
-        return view('lpd.index', ["title" => "Laporan Perjalanan Dinas", "subtitle" => "Laporan Perjalanan Dinas"]);
-        // compact(['laporan']),
+        // Ambil semua ID nota dinas yang sudah dipakai di tabel surat
+        $dipakai = Surat::pluck('id_nota_dinas');
+
+        // Terus ambil datanya dari nota_dinas yang ID-nya ADA di list tersebut
+        $nomorSurats = NotaDinas::whereIn('id', $dipakai)->get();
+
+        $lpd = LaporanPerjalananDinas::latest()->get();
+
+        return view('lpd.index', [
+            'title' => 'Laporan Perjalanan Dinas',
+            'subtitle' => 'Buat Laporan Perjalanan Dinas',
+            'nomorSurats' => $nomorSurats,
+            'lpd' => $lpd,
+        ]);
     }
 
     /**
@@ -31,21 +45,44 @@ class LaporanPerjalananDinasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'id_nota_dinas' => 'required|exists:nota_dinas,id',
+            'pdf_file' => 'required|mimes:pdf|max:2048',
+        ]);
+
+        // Simpan file
+        $file = $request->file('pdf_file');
+        $filename = time() . '_' . $file->getClientOriginalName();
+
+        // Simpan ke folder storage/app/public/lpd
+        $file->storeAs('lpd', $filename, 'public');
+
+        // Simpan ke database
+        LaporanPerjalananDinas::create([
+            'id_nota_dinas' => $validated['id_nota_dinas'],
+            'filename' => $filename, // <- ini langsung dari variable filename, BUKAN $validated
+        ]);
+
+        return redirect()->back()->with('success', 'Laporan berhasil disimpan.');
     }
+
+
 
     /**
      * Display the specified resource.
      */
-    public function show(LaporanPerjalananDinas $laporanPerjalananDinas)
+    public function show(NotaDinas $notaDinas)
     {
-        //
+        $nota = NotaDinas::findOrFail($notaDinas);
+        return response()->file(storage_path('app/public/nodin/' . $nota->filename));
     }
+
+
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(LaporanPerjalananDinas $laporanPerjalananDinas)
+    public function edit(NotaDinas $notaDinas)
     {
         //
     }
@@ -53,7 +90,7 @@ class LaporanPerjalananDinasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, LaporanPerjalananDinas $laporanPerjalananDinas)
+    public function update(Request $request, NotaDinas $notaDinas)
     {
         //
     }
@@ -61,8 +98,18 @@ class LaporanPerjalananDinasController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(LaporanPerjalananDinas $laporanPerjalananDinas)
+    public function destroy($id)
     {
-        //
+        $notaDinas = NotaDinas::findOrFail($id);
+
+        // Menghapus file dari storage menggunakan Storage facade
+        if (Storage::disk('public')->exists('nodin/' . $notaDinas->filename)) {
+            Storage::disk('public')->delete('nodin/' . $notaDinas->filename);
+        }
+
+        // Menghapus data dari database
+        $notaDinas->delete();
+
+        return redirect()->back()->with('success', 'Nota Dinas berhasil dihapus.');
     }
 }

@@ -18,4 +18,9 @@ class NotaDinas extends Model
         return $this->hasMany(Surat::class, 'id_nota_dinas');
     }
 
+    public function lpds()
+    {
+        return $this->hasMany(LaporanPerjalananDinas::class, 'id_nota_dinas');
+    }
+
 }

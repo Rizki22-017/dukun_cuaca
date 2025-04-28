@@ -11,7 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::create('lpds', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('id_nota_dinas')
+                ->constrained('nota_dinas')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+            $table->string('filename');
+            $table->timestamps();
+        });
     }
 
     /**

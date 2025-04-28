@@ -38,7 +38,7 @@
             @auth
                 {{ Auth::user()->pegawai->nama_pegawai }}
             @else
-                Nama User
+                Halo!!!
             @endauth
         </a>
         <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
@@ -69,52 +69,91 @@
             <nav id="sidebarMenu"
                 class="d-flex flex-column flex-shrink-0 col-md-3 col-lg-2 d-md-block text-white bg-dark sidebar collapse">
                 <hr>
+
+                @php
+                    $wewenangs = auth()->check() ? auth()->user()->pegawai->wewenang : [];
+                @endphp
+
                 <ul class="nav nav-pills flex-column nav-pills">
+                    {{-- Semua orang bisa lihat Dashboard --}}
                     <li class="nav-item">
-                        <a class="nav-link text-white {{ $title === 'Dashboard' ? 'active' : '' }}" aria-current="page"
-                            href="/">
+                        <a class="nav-link text-white {{ $title === 'Dashboard' ? 'active' : '' }}" href="/">
                             <span data-feather="home" class="align-text-bottom"></span>
-                            Dashboard {{-- Semua User --}}
+                            Dashboard
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white {{ $title === 'Admin' ? 'active' : '' }}" href="/Admin">
-                            <span data-feather="file" class="align-text-bottom"></span>
-                            Menu Admin {{-- Admin --}}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white {{ $title === 'Pegawai' ? 'active' : '' }}" href="/Pegawai">
-                            <span data-feather="users" class="align-text-bottom"></span>
-                            Data Pegawai {{-- Admin --}}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white {{ $title === 'Pimpinan' ? 'active' : '' }}" href="/Pimpinan">
-                            <span data-feather="users" class="align-text-bottom"></span>
-                            Data Pimpinan {{-- Admin --}}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white {{ $title === 'Nota Dinas' ? 'active' : '' }}" href="/NotaDinas">
-                            <span data-feather="layers" class="align-text-bottom"></span>
-                            Nota Dinas {{-- Pimpinan --}}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white {{ $title === 'St' ? 'active' : '' }}" href="/St">
-                            <span data-feather="book-open" class="align-text-bottom"></span>
-                            Surat Tugas{{-- Admin --}}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white {{ $title === 'Laporan Perjalanan Dinas' ? 'active' : '' }}"
-                            href="/LaporanPerjalananDinas">
-                            <span data-feather="archive" class="align-text-bottom"></span>
-                            Laporan Perjalanan Dinas {{-- Pegawai, Pimpinan --}}
-                        </a>
-                    </li>
+
+                    @auth
+                        {{-- Admin bisa lihat semua menu --}}
+                        @if (in_array('Admin', $wewenangs))
+                            <li class="nav-item">
+                                <a class="nav-link text-white {{ $title === 'Admin' ? 'active' : '' }}" href="/Admin">
+                                    <span data-feather="file" class="align-text-bottom"></span>
+                                    Menu Admin
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white {{ $title === 'Pegawai' ? 'active' : '' }}" href="/Pegawai">
+                                    <span data-feather="users" class="align-text-bottom"></span>
+                                    Data Pegawai
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white {{ $title === 'Pimpinan' ? 'active' : '' }}" href="/Pimpinan">
+                                    <span data-feather="users" class="align-text-bottom"></span>
+                                    Data Pimpinan
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white {{ $title === 'Nota Dinas' ? 'active' : '' }}"
+                                    href="/NotaDinas">
+                                    <span data-feather="layers" class="align-text-bottom"></span>
+                                    Nota Dinas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white {{ $title === 'St' ? 'active' : '' }}" href="/St">
+                                    <span data-feather="book-open" class="align-text-bottom"></span>
+                                    Surat Tugas
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white {{ $title === 'Laporan Perjalanan Dinas' ? 'active' : '' }}"
+                                    href="/LaporanPerjalananDinas">
+                                    <span data-feather="archive" class="align-text-bottom"></span>
+                                    Laporan Perjalanan Dinas
+                                </a>
+                            </li>
+
+                            {{-- Selain Admin --}}
+                        @else
+                            {{-- Kalau Pimpinan (ST atau SPD) --}}
+                            @if (in_array('Pimpinan ST', $wewenangs) || in_array('Pimpinan SPD', $wewenangs))
+                                <li class="nav-item">
+                                    <a class="nav-link text-white {{ $title === 'Nota Dinas' ? 'active' : '' }}"
+                                        href="/NotaDinas">
+                                        <span data-feather="layers" class="align-text-bottom"></span>
+                                        Nota Dinas
+                                    </a>
+                                </li>
+                            @endif
+
+                            {{-- Kalau Pegawai biasa atau Pimpinan, dua-duanya bisa lihat Laporan Perjalanan Dinas --}}
+                            @if (in_array('Pegawai biasa', $wewenangs) ||
+                                    in_array('Pimpinan ST', $wewenangs) ||
+                                    in_array('Pimpinan SPD', $wewenangs))
+                                <li class="nav-item">
+                                    <a class="nav-link text-white {{ $title === 'Laporan Perjalanan Dinas' ? 'active' : '' }}"
+                                        href="/LaporanPerjalananDinas">
+                                        <span data-feather="archive" class="align-text-bottom"></span>
+                                        Laporan Perjalanan Dinas
+                                    </a>
+                                </li>
+                            @endif
+                        @endif
+                    @endauth
                 </ul>
+
                 <hr>
         </div>
         </nav>

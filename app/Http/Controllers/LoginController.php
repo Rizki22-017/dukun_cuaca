@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,8 +15,15 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('login.login', ["title" => "Login", "subtitle" => "Masuk ke Sistem"]);
+
+
+        return view('login.login', [
+            "title" => "Login",
+            "subtitle" => "Masuk ke Sistem",
+        ]);
     }
+
+
 
     /**
      * Handle login logic.
@@ -65,4 +73,20 @@ class LoginController extends Controller
         Auth::logout();
         return redirect()->route('login');  // Redirect ke halaman login setelah logout
     }
+
+    public function showRegisterForm()
+{
+    // Cek apakah sudah ada user yang terdaftar
+    if (User::exists()) {
+        // Kalau sudah ada user, kasih pesan warning dan redirect ke login
+        return redirect()->route('login')->with('warning', 'Registrasi hanya dapat dilakukan oleh admin. Silakan hubungi admin.');
+    }
+
+    // Kalau belum ada user, tampilkan form register
+    return view('login.register', [
+        'title' => 'Register',
+        'subtitle' => 'Register'
+    ]);
+}
+
 }

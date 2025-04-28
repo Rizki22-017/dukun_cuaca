@@ -61,6 +61,13 @@ class PegawaiController extends Controller
             'pegawai_id' => $pegawai->id_pegawai,
         ]);
 
+        // Cek apakah ini adalah pendaftaran pertama (cek jumlah pegawai yang sudah ada)
+        if (Pegawai::count() == 1) {
+            // Jika ini adalah pendaftaran pertama, set wewenang sebagai Admin
+            $pegawai->wewenang = ['Admin']; // Set as Admin
+            $pegawai->save();
+        }
+
         return redirect()->route('Pegawai.index')->with('success', 'Data Pegawai Berhasil Ditambahkan');
     }
 

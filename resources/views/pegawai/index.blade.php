@@ -43,10 +43,6 @@
             <a href={{ route('Pegawai.create') }}><button type="button" class="btn btn-success">Tambah Data</button></a>
         </div>
 
-        <div class="mb-2">
-            <input type="text" class="form-control" placeholder="🔍 All fields">
-        </div>
-
         <div class="table-wrapper">
             <table class="table table-bordered text-center align-middle">
                 <thead class="table-secondary">
@@ -71,7 +67,7 @@
                             <td>{{ $pegawai->bagian_kerja }}</td>
                             <td>{{ $pegawai->tanggal_lahir }}</td>
                             <td>
-                                @if(is_array($pegawai->wewenang))
+                                @if (is_array($pegawai->wewenang))
                                     {{ implode(', ', $pegawai->wewenang) }}
                                 @else
                                     {{ $pegawai->wewenang }}

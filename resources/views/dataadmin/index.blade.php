@@ -58,10 +58,6 @@
             <a href={{ route('Admin.create') }}><button type="button" class="btn btn-success">Tambah Data</button></a>
         </div>
 
-        <div class="mb-2">
-            <input type="text" class="form-control" placeholder="🔍 All fields">
-        </div>
-
         <div class="table-wrapper">
             <table class="table table-bordered text-center align-middle">
                 <thead class="table-secondary">
@@ -97,8 +93,8 @@
                                     $isAdmin = is_array($pegawai->wewenang) && in_array('Admin', $pegawai->wewenang);
                                 @endphp
 
-                                <a href="{{ route('Admin.edit', $pegawai->id_pegawai) }}"
-                                    class="btn btn-outline-primary btn-sm">Edit</a>
+                                {{-- <a href="{{ route('Admin.edit', $pegawai->id_pegawai) }}"
+                                    class="btn btn-outline-primary btn-sm">Edit</a> --}}
 
                                 <button class="btn btn-outline-danger btn-sm"
                                     onclick="confirmDelete({{ $pegawai->id_pegawai }})" {{ $isAdmin ? 'disabled' : '' }}>

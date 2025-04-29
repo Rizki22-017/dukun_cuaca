@@ -25,7 +25,9 @@ class DokumenController extends Controller
 
         $pdf = PDF::loadView('surat.st', compact('surat'));
 
-        return $pdf->stream('surat-tugas-' . $surat->notaDinas->nomor_surat . '.pdf');
+        $sanitizedNomorSurat = preg_replace('/[\/\\\\:*?"<>|]/', '-', $surat->notaDinas->nomor_surat);
+
+        return $pdf->stream('surat-tugas-' . $sanitizedNomorSurat . '.pdf');
 
         // stream ubah ke download kalo udah kelar
     }
@@ -34,9 +36,11 @@ class DokumenController extends Controller
     {
         $surat = Surat::with(['notaDinas', 'pejabatSt', 'pejabatSpd', 'pegawaiBertugas'])->findOrFail($id);
 
+        $sanitizedNomorSurat = preg_replace('/[\/\\\\:*?"<>|]/', '-', $surat->notaDinas->nomor_surat);
+
         $pdf = PDF::loadView('surat.spd', compact('surat'));
 
-        return $pdf->stream('surat-pd-' . $surat->notaDinas->nomor_surat . '.pdf');
+        return $pdf->stream('surat-pd-' . $sanitizedNomorSurat . '.pdf');
     }
 
     /**

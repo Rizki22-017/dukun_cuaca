@@ -69,7 +69,8 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>{{ $lpd->notaDinas->nomor_surat }}</span>
                         <div>
-                            <a href="{{ asset('storage/lpd/' . $lpd->filename) }}" target="_blank">Lihat</a>
+                            <a href="{{ asset('storage/lpd/' . $lpd->filename) }}" target="_blank"
+                                class="btn btn-outline-primary btn-sm">Lihat</a>
 
                             <button class="btn btn-outline-danger btn-sm"
                                 onclick="confirmDelete({{ $lpd->id }})">Delete</button>

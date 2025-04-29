@@ -68,18 +68,17 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span>{{ $pdf->nomor_surat }}</span>
                         <div>
-                            <a href="{{ asset('storage/nodin/' . $pdf->filename) }}" target="_blank">Lihat</a>
+                            <a href="{{ asset('storage/nodin/' . $pdf->filename) }}" target="_blank"
+                                class="btn btn-outline-primary btn-sm">Lihat</a>
 
                             <button class="btn btn-outline-danger btn-sm"
                                 onclick="confirmDelete({{ $pdf->id }})">Delete</button>
 
-                            <form id="delete-form-{{ $pdf->id }}"
-                                action="{{ route('NotaDinas.destroy', $pdf->id) }}" method="POST"
-                                style="display: none;">
+                            <form id="delete-form-{{ $pdf->id }}" action="{{ route('NotaDinas.destroy', $pdf->id) }}"
+                                method="POST" style="display: none;">
                                 @csrf
                                 @method('DELETE')
                             </form>
-
                         </div>
                     </li>
                 @empty

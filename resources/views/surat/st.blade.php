@@ -12,7 +12,8 @@
         <img src="{{ public_path('assets/img/kopsurat.jpg') }}" alt="Kop Surat" style="width: 100%; max-width: 900px;">
     </div>
 
-    <div style="font-family: 'Times New Roman', Times, serif; font-size: 12pt; margin-left: 50px; margin-right: 50px; line-height: 1;">
+    <div
+        style="font-family: 'Times New Roman', Times, serif; font-size: 12pt; margin-left: 50px; margin-right: 50px; line-height: 1;">
 
         <div style="text-align: center; margin-top:10px">
             <span style="text-decoration: underline; font-weight: bold; font-size: 14pt;">SURAT TUGAS</span><br>
@@ -149,7 +150,8 @@
                 <tr>
                     <td>Selama</td>
                     <td>:</td>
-                    <td>{{ \Carbon\Carbon::parse($surat->tgl_mulai)->diffInDays(\Carbon\Carbon::parse($surat->tgl_selesai)) + 1 }} hari</td>
+                    <td>{{ \Carbon\Carbon::parse($surat->tgl_mulai)->diffInDays(\Carbon\Carbon::parse($surat->tgl_selesai)) + 1 }}
+                        hari</td>
                 </tr>
                 <tr>
                     <td>Lokasi</td>
@@ -173,7 +175,7 @@
         <div style="margin-top: 48px; text-align: right;">
             {{ $surat->lokasi_berangkat ?? 'Lokasi Berangkat' }},
             {{ \Carbon\Carbon::parse($surat->tgl_mulai)->translatedFormat('d F Y') }}<br>
-            Kepala,<br><br><br><br>
+            Kepala,<br><br><br><br><br><br>
             <span style="font-weight: bold; text-decoration: underline;">{{ $surat->pejabatSt->nama_pegawai }}</span>
         </div>
 

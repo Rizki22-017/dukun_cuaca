@@ -254,7 +254,7 @@
         <tr>
             <td style="border: 1px solid black;">{{ $no++ }}</td>
             <td style="border: 1px solid black; text-align: center;">
-                Pejabat Yang Berwenang / Pejabat lainnya yang ditunjuk,
+                Pejabat Yang Berwenang / Pejabat lainnya yang ditunjuk,<br>
                 <div style="height: 80px;"></div>
                 <strong>{{ $surat->pejabatSt->nama_pegawai }}</strong><br>
                 NIP. {{ $surat->pejabatSt->nip }}

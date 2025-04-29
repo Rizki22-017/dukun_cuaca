@@ -50,7 +50,7 @@
                 <div class="mb-3">
                     <label class="form-label">NIP</label>
                     <input type="text" name="nip" class="form-control" placeholder="Nomor Induk Pegawai"
-                        maxlength="15" required>
+                        maxlength="18" required>
                 </div>
 
                 <div class="mb-3">

@@ -16,7 +16,7 @@
                 <div class="mb-3">
                     <label class="form-label">NIP</label>
                     <input type="text" name="nip" class="form-control" value="{{ $pegawai->nip }}"
-                        placeholder="Nomor Induk Pegawai" maxlength="15" required>
+                        placeholder="Nomor Induk Pegawai" maxlength="18" required>
                 </div>
 
                 <div class="mb-3">

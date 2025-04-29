@@ -88,10 +88,9 @@
 
                 <div class="mb-3">
                     <label class="form-label">Password</label>
-                    <input type="text" class="form-control" name="password" value="12345678" required>
+                    <input type="password" class="form-control" name="password" value="12345678" required>
                     <small class="text-muted">Password default 12345678, bisa diganti.</small>
                 </div>
-
 
                 {{-- <div class="mb-3">
                     <label class="form-label">Wewenang</label>

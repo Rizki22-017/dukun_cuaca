@@ -93,11 +93,17 @@
                                 @endif
                             </td>
                             <td>
+                                @php
+                                    $isAdmin = is_array($pegawai->wewenang) && in_array('Admin', $pegawai->wewenang);
+                                @endphp
+
                                 <a href="{{ route('Admin.edit', $pegawai->id_pegawai) }}"
                                     class="btn btn-outline-primary btn-sm">Edit</a>
 
                                 <button class="btn btn-outline-danger btn-sm"
-                                    onclick="confirmDelete({{ $pegawai->id_pegawai }})">Delete</button>
+                                    onclick="confirmDelete({{ $pegawai->id_pegawai }})" {{ $isAdmin ? 'disabled' : '' }}>
+                                    Delete
+                                </button>
 
                                 <form id="delete-form-{{ $pegawai->id_pegawai }}"
                                     action="{{ route('Admin.destroy', $pegawai->id_pegawai) }}" method="POST"

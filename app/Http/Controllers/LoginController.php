@@ -71,22 +71,62 @@ class LoginController extends Controller
     public function logout()
     {
         Auth::logout();
-        return redirect()->route('login');  // Redirect ke halaman login setelah logout
+        return redirect()->route('login');
     }
 
     public function showRegisterForm()
-{
-    // Cek apakah sudah ada user yang terdaftar
-    if (User::exists()) {
-        // Kalau sudah ada user, kasih pesan warning dan redirect ke login
-        return redirect()->route('login')->with('warning', 'Registrasi hanya dapat dilakukan oleh admin. Silakan hubungi admin.');
+    {
+        if (User::exists()) {
+            return redirect()->route('login')->with('warning', 'Registrasi hanya dapat dilakukan oleh admin. Silakan hubungi admin.');
+        }
+
+        return view('login.register', [
+            'title' => 'Register',
+            'subtitle' => 'Register'
+        ]);
     }
 
-    // Kalau belum ada user, tampilkan form register
-    return view('login.register', [
-        'title' => 'Register',
-        'subtitle' => 'Register'
-    ]);
-}
+    public function register(Request $request)
+    {
+        $validateData = $request->validate([
+            'nama_pegawai' => 'required|string|max:50',
+            'nip' => 'required|string|max:18|unique:pegawais,nip',
+            'pangkat_golongan' => 'required|string|max:50',
+            'jabatan' => 'required|string|max:15',
+            'bagian_kerja' => 'required|string|max:50',
+            'tanggal_lahir' => 'required|date',
+            'username' => 'required|string|max:50|unique:users,username',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8|max:255',
+            // 'wewenang' => 'required|array',
+            // 'wewenang.*' => 'in:' . implode(',', array_map(fn($w) => $w->value, \App\WewenangEnum::cases())),
+        ]);
+
+        $pegawai = Pegawai::create([
+            'nama_pegawai' => $validateData['nama_pegawai'],
+            'nip' => $validateData['nip'],
+            'pangkat_golongan' => $validateData['pangkat_golongan'],
+            'jabatan' => $validateData['jabatan'],
+            'bagian_kerja' => $validateData['bagian_kerja'],
+            'tanggal_lahir' => $validateData['tanggal_lahir'],
+            'wewenang' => ['Pegawai biasa'],
+        ]);
+
+        User::create([
+            'username' => $validateData['username'],
+            'email' => $validateData['email'],
+            'password' => bcrypt($validateData['password']),
+            'pegawai_id' => $pegawai->id_pegawai,
+        ]);
+
+        // Cek apakah ini adalah pendaftaran pertama (cek jumlah pegawai yang sudah ada)
+        if (Pegawai::count() == 1) {
+            // Jika ini adalah pendaftaran pertama, set wewenang sebagai Admin
+            $pegawai->wewenang = ['Admin']; // Set as Admin
+            $pegawai->save();
+        }
+
+        return redirect()->route('login')->with('success', 'Anda terdaftar sebagai admin!');
+    }
 
 }

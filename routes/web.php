@@ -64,3 +64,4 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Register
 Route::get('/register', [LoginController::class, 'showRegisterForm'])->name('register.form');
+Route::post('/register', [LoginController::class, 'register'])->name('Login.store');

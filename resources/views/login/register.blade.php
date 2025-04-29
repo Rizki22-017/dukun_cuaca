@@ -37,7 +37,7 @@
         </script>
     @endif
     <div class="container mt-4">
-        <form action="{{ route('Pegawai.store') }}" method="POST">
+        <form action="/register" method="POST">
             @csrf
             <div class="form-section">
 

@@ -32,7 +32,7 @@ class PegawaiController extends Controller
     {
         $validateData = $request->validate([
             'nama_pegawai' => 'required|string|max:50',
-            'nip' => 'required|string|max:15|unique:pegawais,nip',
+            'nip' => 'required|string|max:18|unique:pegawais,nip',
             'pangkat_golongan' => 'required|string|max:50',
             'jabatan' => 'required|string|max:15',
             'bagian_kerja' => 'required|string|max:50',
@@ -165,5 +165,4 @@ class PegawaiController extends Controller
             return redirect()->route('Pegawai.index')->with('error', 'Data Pegawai tidak ditemukan!');
         }
     }
-
 }

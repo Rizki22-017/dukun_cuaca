@@ -16,7 +16,7 @@ class PegawaiSeeder extends Seeder
         $pegawais = [
             [
                 'nama_pegawai' => 'Rizki',
-                'nip' => '123456789999999',
+                'nip' => '123456789012345678',
                 'pangkat_golongan' => 'iii',
                 'jabatan' => 'pegawai',
                 'bagian_kerja' => 'ahli',
@@ -25,7 +25,7 @@ class PegawaiSeeder extends Seeder
             ]
         ];
 
-        foreach ($pegawais as $pegawai){
+        foreach ($pegawais as $pegawai) {
             Pegawai::create($pegawai);
         }
     }

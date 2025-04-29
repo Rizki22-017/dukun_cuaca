@@ -80,21 +80,24 @@
 
     <table class="tg">
         <thead>
-            <tr>
-                <th class="tg-0pky">1</th>
-                <th class="tg-0pky">Pejabat Pembuat Komitmen</th>
-                <th class="tg-0pky" colspan="2">{{ $surat->pejabatSt->nama_pegawai }}</th>
-            </tr>
+            @php
+                $no = 1;
+            @endphp
         </thead>
         <tbody>
             <tr>
-                <td class="tg-0pky">2</td>
+                <th class="tg-0pky">{{ $no++ }}</th>
+                <th class="tg-0pky">Pejabat Pembuat Komitmen</th>
+                <th class="tg-0pky" colspan="2">{{ $surat->pejabatSt->nama_pegawai }}</th>
+            </tr>
+            <tr>
+                <td class="tg-0pky">{{ $no++ }}</td>
                 <td class="tg-0pky">Nama/NIP Pegawai yang melaksanakan perjalanan dinas</td>
                 <td class="tg-0pky" colspan="2">{{ $surat->pegawaiBertugas->nama_pegawai }} /
                     {{ $surat->pegawaiBertugas->nip }}</td>
             </tr>
             <tr>
-                <td class="tg-0pky" rowspan="3">3</td>
+                <td class="tg-0pky" rowspan="3">{{ $no++ }}</td>
                 <td class="tg-0pky">Pangkat dan Golongan</td>
                 <td class="tg-0pky" colspan="2">{{ $surat->pegawaiBertugas->pangkat_golongan }}</td>
             </tr>
@@ -108,17 +111,17 @@
                 <td class="tg-0pky" colspan="2">C</td>
             </tr>
             <tr>
-                <td class="tg-0pky">4</td>
+                <td class="tg-0pky">{{ $no++ }}</td>
                 <td class="tg-0pky">Maksud Perjalanan Dinas</td>
                 <td class="tg-0pky" colspan="2">{{ $surat->tugas }}</td>
             </tr>
             <tr>
-                <td class="tg-0pky">5</td>
+                <td class="tg-0pky">{{ $no++ }}</td>
                 <td class="tg-0pky">Alat Angkutan yang Dipergunakan</td>
                 <td class="tg-0pky" colspan="2">{{ implode(', ', $surat->kendaraan) }}</td>
             </tr>
             <tr>
-                <td class="tg-0pky" rowspan="2">6</td>
+                <td class="tg-0pky" rowspan="2">{{ $no++ }}</td>
                 <td class="tg-0pky">Tempat Berangkat</td>
                 <td class="tg-0pky" colspan="2">{{ $surat->lokasi_berangkat }}</td>
             </tr>
@@ -128,7 +131,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="tg-0pky" rowspan="3">7</td>
+                <td class="tg-0pky" rowspan="3">{{ $no++ }}</td>
                 <td class="tg-0pky">Lamanya Perjalanan Dinas</td>
                 <td class="tg-0pky" colspan="2">
                     {{ \Carbon\Carbon::parse($surat->tgl_mulai)->diffInDays($surat->tgl_selesai) + 1 }} Hari</td>
@@ -151,7 +154,7 @@
                     @endphp
                     @if ($pengikut)
                         <tr>
-                            <td class="tg-0pky">8</td>
+                            <td class="tg-0pky">{{ $no++ }}</td>
                             <td class="tg-0pky">Pengikut : Nama/NIP</td>
                             <td class="tg-0pky">Tanggal Lahir</td>
                             </td>
@@ -171,7 +174,7 @@
             @endif
 
             <tr>
-                <td class="tg-0pky" rowspan="3">9</td>
+                <td class="tg-0pky" rowspan="3">{{ $no++ }}</td>
                 <td class="tg-0pky" colspan="3">Pembebanan Anggaran</td>
             </tr>
             <tr>
@@ -183,7 +186,7 @@
                 <td class="tg-0pky" colspan="2">{{ $surat->akun }}</td>
             </tr>
             <tr>
-                <td class="tg-0pky">10</td>
+                <td class="tg-0pky">{{ $no++ }}</td>
                 <td class="tg-0pky">Keterangan Lain-Lain</td>
                 <td class="tg-0pky" colspan="2">{{ $surat->keterangan }}</td>
             </tr>
@@ -209,7 +212,10 @@
     <br><br>
     <table style="width:100%; border-collapse: collapse; border: 1px solid black;">
         <tr>
-            <td style="border: 1px solid black; width:5%;">1.</td>
+            @php
+                $no = 1;
+            @endphp
+            <td style="border: 1px solid black; width:5%;">{{ $no++ }}</td>
             <td style="border: 1px solid black; width:45%;">
                 <strong>Nama</strong>: {{ $surat->pegawaiBertugas->nama_pegawai }}<br>
                 <strong>Berangkat dari</strong>: {{ $surat->lokasi_berangkat }}<br>
@@ -229,7 +235,7 @@
                 @endphp
                 @if ($pengikut)
                     <tr>
-                        <td style="border: 1px solid black; width:5%;"></td> <!-- Nomor mulai dari 2 -->
+                        <td style="border: 1px solid black; width:5%;">{{ $no++ }}</td>
                         <td style="border: 1px solid black; width:45%;">
                             <strong>Nama</strong>: {{ $pengikut->nama_pegawai }}<br>
                             <strong>Berangkat dari</strong>: {{ $surat->lokasi_berangkat }}<br>
@@ -246,7 +252,7 @@
         @endif
 
         <tr>
-            <td style="border: 1px solid black;">5.</td>
+            <td style="border: 1px solid black;">{{ $no++ }}</td>
             <td style="border: 1px solid black; text-align: center;">
                 Pejabat Yang Berwenang / Pejabat lainnya yang ditunjuk,
                 <div style="height: 80px;"></div>
@@ -263,7 +269,7 @@
         </tr>
 
         <tr>
-            <td style="border: 1px solid black;">6.</td>
+            <td style="border: 1px solid black;">{{ $no++ }}</td>
             <td style="border: 1px solid black;">Catatan lain-lain</td>
             <td style="border: 1px solid black; text-align: justify;">
 
@@ -271,7 +277,7 @@
         </tr>
 
         <tr>
-            <td style="border: 1px solid black;">7.</td>
+            <td style="border: 1px solid black;">{{ $no++ }}</td>
             <td style="border: 1px solid black;" colspan="2" class="text-justify">
                 PERHATIAN: Pegawai yang melakukan perjalanan dinas diwajibkan menghemat biaya dan mempertanggungjawabkan
                 penggunaannya.

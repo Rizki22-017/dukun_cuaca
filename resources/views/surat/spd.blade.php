@@ -52,7 +52,7 @@
                 Kementerian Negara / Lembaga<br>
                 <strong>Badan Meteorologi Klimatologi dan Geofisika</strong>
             </td>
-            <td style="width:55%; vertical-align: top;">
+            <td style="width:55%; vertical-align: top; padding-left: 20px;">
                 <table style="width:100%; border-collapse: collapse;">
                     <tr>
                         <td style="width:40%;">Lembar Ke</td>

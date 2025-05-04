@@ -9,6 +9,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="{{ asset('/favicon.ico') }}">
     <link rel="manifest" href="/site.webmanifest">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -84,79 +85,84 @@
                     </li>
 
                     @auth
-                        {{-- Admin bisa lihat semua menu --}}
+                        @php
+                            $wewenangs = auth()->user()->pegawai->wewenang ?? [];
+                        @endphp
+
+                        {{-- Admin: akses penuh --}}
                         @if (in_array('Admin', $wewenangs))
                             <li class="nav-item">
                                 <a class="nav-link text-white {{ $title === 'Admin' ? 'active' : '' }}" href="/Admin">
-                                    <span data-feather="file" class="align-text-bottom"></span>
-                                    Menu Admin
+                                    <span data-feather="file" class="align-text-bottom"></span> Menu Admin
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white {{ $title === 'Pegawai' ? 'active' : '' }}" href="/Pegawai">
-                                    <span data-feather="users" class="align-text-bottom"></span>
-                                    Data Pegawai
+                                    <span data-feather="users" class="align-text-bottom"></span> Data Pegawai
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white {{ $title === 'Pimpinan' ? 'active' : '' }}" href="/Pimpinan">
-                                    <span data-feather="users" class="align-text-bottom"></span>
-                                    Data Pimpinan
+                                    <span data-feather="users" class="align-text-bottom"></span> Data Pimpinan
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white {{ $title === 'Nota Dinas' ? 'active' : '' }}"
                                     href="/NotaDinas">
-                                    <span data-feather="layers" class="align-text-bottom"></span>
-                                    Nota Dinas
+                                    <span data-feather="layers" class="align-text-bottom"></span> Nota Dinas
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white {{ $title === 'St' ? 'active' : '' }}" href="/St">
-                                    <span data-feather="book-open" class="align-text-bottom"></span>
-                                    Surat Tugas
+                                    <span data-feather="book-open" class="align-text-bottom"></span> Surat Tugas
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white {{ $title === 'Laporan Perjalanan Dinas' ? 'active' : '' }}"
                                     href="/LaporanPerjalananDinas">
-                                    <span data-feather="archive" class="align-text-bottom"></span>
-                                    Laporan Perjalanan Dinas
+                                    <span data-feather="archive" class="align-text-bottom"></span> Laporan Perjalanan Dinas
                                 </a>
                             </li>
 
-                            {{-- Selain Admin --}}
+                            {{-- Non-admin --}}
                         @else
-                            {{-- Kalau Pimpinan (ST atau SPD) --}}
+                            {{-- Pimpinan ST / SPD: akses Nota Dinas --}}
                             @if (in_array('Pimpinan ST', $wewenangs) || in_array('Pimpinan SPD', $wewenangs))
                                 <li class="nav-item">
                                     <a class="nav-link text-white {{ $title === 'Nota Dinas' ? 'active' : '' }}"
                                         href="/NotaDinas">
-                                        <span data-feather="layers" class="align-text-bottom"></span>
-                                        Nota Dinas
+                                        <span data-feather="layers" class="align-text-bottom"></span> Nota Dinas
                                     </a>
                                 </li>
                             @endif
 
-                            {{-- Kalau Pegawai biasa atau Pimpinan, dua-duanya bisa lihat Laporan Perjalanan Dinas --}}
-                            @if (in_array('Pegawai biasa', $wewenangs) ||
-                                    in_array('Pimpinan ST', $wewenangs) ||
-                                    in_array('Pimpinan SPD', $wewenangs))
+                            {{-- Pegawai biasa: akses Surat Tugas --}}
+                            @if (in_array('Pegawai biasa', $wewenangs))
+                                <li class="nav-item">
+                                    <a class="nav-link text-white {{ $title === 'St' ? 'active' : '' }}" href="/St">
+                                        <span data-feather="book-open" class="align-text-bottom"></span> Surat Tugas
+                                    </a>
+                                </li>
+                            @endif
+
+                            {{-- Pimpinan & Pegawai: akses Laporan Perjalanan Dinas --}}
+                            @if (in_array('Pimpinan ST', $wewenangs) ||
+                                    in_array('Pimpinan SPD', $wewenangs) ||
+                                    in_array('Pegawai biasa', $wewenangs))
                                 <li class="nav-item">
                                     <a class="nav-link text-white {{ $title === 'Laporan Perjalanan Dinas' ? 'active' : '' }}"
                                         href="/LaporanPerjalananDinas">
-                                        <span data-feather="archive" class="align-text-bottom"></span>
-                                        Laporan Perjalanan Dinas
+                                        <span data-feather="archive" class="align-text-bottom"></span> Laporan Perjalanan
+                                        Dinas
                                     </a>
                                 </li>
                             @endif
                         @endif
                     @endauth
                 </ul>
-
                 <hr>
+            </nav>
         </div>
-        </nav>
 
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
             <div
@@ -166,9 +172,8 @@
             </div>
             @yield('container')
         </main>
+    </div>
 
-    </div>
-    </div>
 
     <script src="{{ asset('/js/app.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
@@ -180,7 +185,6 @@
     <script src="/js/dashboard.js"></script>
 
     <script>
-        // Format tanggal hari ini ke format lokal Indonesia
         const hari = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
         const bulan = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober',
             'November', 'Desember'

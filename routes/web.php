@@ -51,8 +51,8 @@ Route::middleware(['auth'])->group(function () {
         WewenangEnum::PimpinanSpd->value,
         WewenangEnum::PegawaiBiasa->value,
     ])])->group(function () {
-        Route::resource('St', SuratController::class);
         Route::resource('LaporanPerjalananDinas', LaporanPerjalananDinasController::class);
+        Route::resource('St', SuratController::class);
         Route::get('/St/download/{id}', [DokumenController::class, 'downloadSt'])->name('st.download');
         Route::get('/St-d/download/{id}', [DokumenController::class, 'downloadSpd'])->name('spd.download');
     });

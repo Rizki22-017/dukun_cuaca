@@ -38,6 +38,10 @@
     @endif
 
     <div class="container mt-4">
+        @php
+            $wewenangs = auth()->user()->pegawai->wewenang ?? [];
+            $isPegawaiBiasa = in_array('Pegawai biasa', $wewenangs);
+        @endphp
         <form action="{{ route('St.store') }}" method="POST">
             @csrf
             <div class="form-section">
@@ -50,15 +54,24 @@
                             <option value="{{ $nota->id }}">{{ $nota->nomor_surat }}</option>
                         @endforeach
                     </select>
-                    <span style="font-size: 10pt"><i>*Tambahkan nomor surat yang belum tersedia di menu <a href="/NotaDinas"><i><b>Nota Dinas</b></i></a></span>
+                    <span style="font-size: 10pt">
+                        <i>
+                            @if ($isPegawaiBiasa)
+                                *Belum ada Nota Dinas baru
+                            @else
+                                *Tambahkan nomor surat yang belum tersedia di menu
+                                <a href="/NotaDinas"><b><i>Nota Dinas</i></b></a>
+                            @endif
+                        </i>
+                    </span>
+
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Pejabat yang memberi perintah</label>
                     <select name="id_pejabat_st" class="form-select" required>
-                        <option selected disabled>Pilih Pejabat ST</option>
                         @foreach ($pimpinanST as $pegawai)
-                            <option value="{{ $pegawai->id_pegawai }}">{{ $pegawai->nama_pegawai }}</option>
+                            <option value="{{ $pegawai->id_pegawai }}" selected>{{ $pegawai->nama_pegawai }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -66,9 +79,8 @@
                 <div class="mb-3">
                     <label class="form-label">Pejabat Surat Perjalanan Dinas</label>
                     <select name="id_pejabat_spd" class="form-select" required>
-                        <option selected disabled>Pilih Pejabat SPD</option>
                         @foreach ($pimpinanSPD as $pegawai)
-                            <option value="{{ $pegawai->id_pegawai }}">{{ $pegawai->nama_pegawai }}</option>
+                            <option value="{{ $pegawai->id_pegawai }}" selected>{{ $pegawai->nama_pegawai }}</option>
                         @endforeach
                     </select>
                 </div>

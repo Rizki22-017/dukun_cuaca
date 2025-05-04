@@ -39,22 +39,7 @@
 
     <div class="container mt-4">
         <div class="row g-3 align-items-end mb-4">
-            <div class="col-auto">
-                <label class="date-label">Start Date</label>
-                <input type="date" class="form-control" value="2025-01-01">
-            </div>
-            <div class="col-auto">
-                <label class="date-label">End Date</label>
-                <input type="date" class="form-control" value="2025-12-31">
-            </div>
-            <div class="col-auto">
-                <button class="btn btn-primary">Filter</button>
-            </div>
             <a href={{ route('St.create') }}><button type="button" class="btn btn-success">Tambah Data</button></a>
-        </div>
-
-        <div class="mb-2">
-            <input type="text" class="form-control" placeholder="🔍 All fields">
         </div>
 
         <div class="table-wrapper">
@@ -87,10 +72,12 @@
                             <td>{{ \Carbon\Carbon::parse($surat->tgl_mulai)->format('d/m/y') }}</td>
                             <td>{{ \Carbon\Carbon::parse($surat->tgl_selesai)->format('d/m/y') }}</td>
                             <td>
-                                <a href="{{ route('st.download', $surat->id) }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                <a href="{{ route('st.download', $surat->id) }}" class="btn btn-outline-primary btn-sm"
+                                    target="_blank">
                                     ST
                                 </a>
-                                <a href="{{ route('spd.download', $surat->id) }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                <a href="{{ route('spd.download', $surat->id) }}" class="btn btn-outline-primary btn-sm"
+                                    target="_blank">
                                     SPD
                                 </a>
                                 {{-- <button class="btn btn-outline-primary btn-sm">SPD</button> --}}

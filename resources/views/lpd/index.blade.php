@@ -39,56 +39,70 @@
 
     <div class="container mt-4">
 
-        <div class="card mb-4">
-            <div class="card-body">
-                <form action="{{ route('LaporanPerjalananDinas.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    <select name="id_nota_dinas" class="form-control">
-                        <option value="">-- Pilih Nomor Surat --</option>
-                        @foreach ($nomorSurats as $nomor)
-                            <option value="{{ $nomor->id }}">{{ $nomor->nomor_surat }}</option>
-                        @endforeach
-                    </select>
+        <div class="container mt-4">
 
-                    <div class="mb-3">
-                        <label for="pdf_file" class="form-label">Upload Laporan Perjalanan Dinas (PDF)</label>
-                        <input type="file" name="pdf_file" id="pdf_file" accept="application/pdf" class="form-control"
-                            required>
+            @php
+                $wewenangs = auth()->user()->pegawai->wewenang ?? [];
+                $isPegawaiBiasa = in_array('Pegawai biasa', $wewenangs);
+            @endphp
+
+            {{-- Upload hanya untuk selain Pegawai Biasa --}}
+            @unless ($isPegawaiBiasa)
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form action="{{ route('LaporanPerjalananDinas.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <select name="id_nota_dinas" class="form-control">
+                                <option value="">-- Pilih Nomor Surat --</option>
+                                @foreach ($nomorSurats as $nomor)
+                                    <option value="{{ $nomor->id }}">{{ $nomor->nomor_surat }}</option>
+                                @endforeach
+                            </select>
+
+                            <div class="mb-3">
+                                <label for="pdf_file" class="form-label">Upload Laporan Perjalanan Dinas (PDF)</label>
+                                <input type="file" name="pdf_file" id="pdf_file" accept="application/pdf"
+                                    class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </form>
                     </div>
-                    <button type="submit" class="btn btn-primary">Upload</button>
-                </form>
+                </div>
+            @endunless
+
+            <div class="card">
+                <div class="card-header">
+                    <strong>Daftar Laporan Perjalanan Dinas</strong>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @forelse($lpd as $lpd)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{{ $lpd->notaDinas->nomor_surat }}</span>
+                            <div>
+                                <a href="{{ asset('storage/lpd/' . $lpd->filename) }}" target="_blank"
+                                    class="btn btn-outline-primary btn-sm">Lihat</a>
+
+                                {{-- Tombol delete hanya untuk selain Pegawai Biasa --}}
+                                @unless ($isPegawaiBiasa)
+                                    <button class="btn btn-outline-danger btn-sm"
+                                        onclick="confirmDelete({{ $lpd->id }})">Delete</button>
+
+                                    <form id="delete-form-{{ $lpd->id }}"
+                                        action="{{ route('LaporanPerjalananDinas.destroy', $lpd->id) }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endunless
+                            </div>
+                        </li>
+                    @empty
+                        <li class="list-group-item text-muted">Belum ada file nota dinas yang diupload.</li>
+                    @endforelse
+                </ul>
             </div>
         </div>
 
-        <div class="card">
-            <div class="card-header">
-                <strong>Daftar Laporan Perjalanan Dinas</strong>
-            </div>
-            <ul class="list-group list-group-flush">
-                @forelse($lpd as $lpd)
-                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                        <span>{{ $lpd->notaDinas->nomor_surat }}</span>
-                        <div>
-                            <a href="{{ asset('storage/lpd/' . $lpd->filename) }}" target="_blank"
-                                class="btn btn-outline-primary btn-sm">Lihat</a>
-
-                            <button class="btn btn-outline-danger btn-sm"
-                                onclick="confirmDelete({{ $lpd->id }})">Delete</button>
-
-                            <form id="delete-form-{{ $lpd->id }}"
-                                action="{{ route('LaporanPerjalananDinas.destroy', $lpd->id) }}" method="POST"
-                                style="display: none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
-
-                        </div>
-                    </li>
-                @empty
-                    <li class="list-group-item text-muted">Belum ada file nota dinas yang diupload.</li>
-                @endforelse
-            </ul>
-        </div>
     </div>
 
     <script>

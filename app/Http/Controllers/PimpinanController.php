@@ -18,7 +18,7 @@ class PimpinanController extends Controller
 
         return view('pimpinan.index', compact('pegawais'), [
             "title" => "Pimpinan",
-            "subtitle" => "Data Pimpinan"
+            "subtitle" => "Pimpinan dengan Kewenangan Penerbitan Surat"
         ]);
     }
 
@@ -29,11 +29,14 @@ class PimpinanController extends Controller
     public function create()
     {
         $pegawais = Pegawai::whereJsonContains('wewenang', 'Pegawai biasa')->get();
-        return view('pimpinan.create', compact('pegawais'), [
+
+        $existingPimpinanST = Pegawai::whereJsonContains('wewenang', 'Pimpinan ST')->exists();
+        $existingPimpinanSPD = Pegawai::whereJsonContains('wewenang', 'Pimpinan SPD')->exists();
+
+        return view('pimpinan.create', compact('pegawais', 'existingPimpinanST', 'existingPimpinanSPD'), [
             "title" => "Pimpinan",
             "subtitle" => "Pimpinan dengan Kewenangan Penerbitan Surat",
         ]);
-
     }
 
     /**
@@ -122,5 +125,4 @@ class PimpinanController extends Controller
 
         return redirect()->route('Pimpinan.index')->with('success', 'Pimpinan berhasil dikembalikan menjadi Pegawai Biasa');
     }
-
 }

@@ -14,21 +14,36 @@
                             <option value="{{ $pegawai->id_pegawai }}">{{ $pegawai->nama_pegawai }}</option>
                         @endforeach
                     </select>
-                    <span style="font-size: 10pt"><i>*Nama yang muncul hanya nama pegawai yang berstatus <b>bukan pimpinan</b></i></span>
+                    <span style="font-size: 10pt"><i>*Nama yang muncul hanya nama pegawai yang berstatus <b>bukan
+                                pimpinan</b></i></span>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Wewenang</label>
-                    <div class="form-check">
-                        <input class="form-check-input wewenang-checkbox" type="checkbox" id="pimpinan_st" name="wewenang[]"
-                            value="Pimpinan ST">
-                        <label class="form-check-label" for="pimpinan_st">Pimpinan ST</label>
+                    <div class="mb-3">
+                        <label class="form-label">Wewenang</label>
+                        <div class="form-check">
+                            <input class="form-check-input wewenang-checkbox" type="checkbox" id="pimpinan_st"
+                                name="wewenang[]" value="Pimpinan ST" {{ $existingPimpinanST ? 'disabled' : '' }}>
+                            <label class="form-check-label" for="pimpinan_st">
+                                Pimpinan ST
+                                @if ($existingPimpinanST)
+                                    <span class="text-danger" style="font-size: 10pt">(sudah terisi)</span>
+                                @endif
+                            </label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input wewenang-checkbox" type="checkbox" id="pimpinan_spd"
+                                name="wewenang[]" value="Pimpinan SPD" {{ $existingPimpinanSPD ? 'disabled' : '' }}>
+                            <label class="form-check-label" for="pimpinan_spd">
+                                Pimpinan SPD
+                                @if ($existingPimpinanSPD)
+                                    <span class="text-danger" style="font-size: 10pt">(sudah terisi)</span>
+                                @endif
+                            </label>
+                        </div>
                     </div>
-                    <div class="form-check">
-                        <input class="form-check-input wewenang-checkbox" type="checkbox" id="pimpinan_spd" name="wewenang[]"
-                            value="Pimpinan SPD">
-                        <label class="form-check-label" for="pimpinan_spd">Pimpinan SPD</label>
-                    </div>
+
                 </div>
 
                 <button type="submit" class="btn btn-primary">Simpan</button>

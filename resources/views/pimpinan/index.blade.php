@@ -62,8 +62,8 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('Pimpinan.edit', $pegawai->id_pegawai) }}"
-                                class="btn btn-outline-primary btn-sm">Edit</a>
+                            {{-- <a href="{{ route('Pimpinan.edit', $pegawai->id_pegawai) }}"
+                                class="btn btn-outline-primary btn-sm">Edit</a> --}}
 
                             <button class="btn btn-outline-danger btn-sm"
                                 onclick="confirmDelete({{ $pegawai->id_pegawai }})">Downgrade</button>

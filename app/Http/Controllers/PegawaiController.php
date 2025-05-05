@@ -105,7 +105,7 @@ class PegawaiController extends Controller
 
         $validateData = $request->validate([
             'nama_pegawai' => 'required|string|max:50',
-            'nip' => 'required|string|max:15|unique:pegawais,nip,' . $pegawai->id_pegawai . ',id_pegawai',
+            'nip' => 'required|string|max:18|unique:pegawais,nip,' . $pegawai->id_pegawai . ',id_pegawai',
             'pangkat_golongan' => 'required|string|max:50',
             'jabatan' => 'required|string|max:15',
             'bagian_kerja' => 'required|string|max:50',
